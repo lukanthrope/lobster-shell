@@ -1,18 +1,20 @@
 # lobster-shell
 Stupid but technologically super advanced project made by two dreamers
 
-# List of required libs and stacks:
-*Front end*
+## List of required libs and stacks:
+
+
+**Front end**
 
 1. Typescript
 2. React (latest with hooks)
 3. Atomic CSS
 4. Webpack
-5. Date-fns
-6. Formik for forms
+5. [Date-fns](https://github.com/date-fns/date-fns "Date-fns")
+6. [Formik for forms] (https://github.com/jaredpalmer/formik "Formik")
 7. GraphQL
-8. Tinygrid
-9. Cypress for integration testing
+8. [Ungrid] (https://github.com/chrisnager/ungrid/blob/gh-pages/ungrid.min.css "Ungrid")
+9. [Cypress for integration testing] (https://www.cypress.io/ "Cypress")
 
 TO INVESTIGATE
 1. Some maps library
@@ -22,8 +24,8 @@ TO INVESTIGATE
 **Patterns to use**
 
 1. App shell
-2. Image component which can be
+2. Image factory component
 3. React pages lazy loading
 4. Intersection observer lazy loading
 5. Combine previous two in one super cool component ( to lazy load whole module or page when its scrolled inside a viewport)
-6. SVG factory for icons
+
