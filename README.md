@@ -1,4 +1,4 @@
-# lobster-shell
+# lobster-shell (need to make up better name)
 Stupid but technologically super advanced project made by two dreamers
 
 ## List of required libs and stacks:
