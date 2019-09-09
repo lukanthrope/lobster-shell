@@ -15,7 +15,7 @@ Stupid but technologically super advanced project made by two dreamers
 7. GraphQL
 8. [Ungrid](https://github.com/chrisnager/ungrid/blob/gh-pages/ungrid.min.css "ungrid")
 9. [Cypress for integration testing](https://www.cypress.io/ "Cypress")
-10. [i18n](https://github.com/yankouskia/localize-react, 'localize-react')
+10. [i18n](https://github.com/yankouskia/localize-react 'localize-react')
 
 TO INVESTIGATE
 1. Some maps library
