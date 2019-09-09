@@ -10,11 +10,12 @@ Stupid but technologically super advanced project made by two dreamers
 2. React (latest with hooks)
 3. Atomic CSS
 4. Webpack
-5. [Date-fns](https://github.com/date-fns/date-fns "Date-fns")
-6. [Formik for forms](https://github.com/jaredpalmer/formik "Formik")
+5. [Date-fns](https://github.com/date-fns/date-fns "date-fns")
+6. [Formik for forms](https://github.com/jaredpalmer/formik "formik")
 7. GraphQL
-8. [Ungrid](https://github.com/chrisnager/ungrid/blob/gh-pages/ungrid.min.css "Ungrid")
+8. [Ungrid](https://github.com/chrisnager/ungrid/blob/gh-pages/ungrid.min.css "ungrid")
 9. [Cypress for integration testing](https://www.cypress.io/ "Cypress")
+10. [i18n](https://github.com/yankouskia/localize-react, 'localize-react')
 
 TO INVESTIGATE
 1. Some maps library
