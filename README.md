@@ -28,6 +28,7 @@ TO INVESTIGATE
 3. React pages lazy loading
 4. Intersection observer lazy loading
 5. Combine previous two in one super cool component ( to lazy load whole module or page when its scrolled inside a viewport)
+6. A11Y
 
 **BACKEND**
 
