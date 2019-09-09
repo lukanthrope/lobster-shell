@@ -29,3 +29,8 @@ TO INVESTIGATE
 4. Intersection observer lazy loading
 5. Combine previous two in one super cool component ( to lazy load whole module or page when its scrolled inside a viewport)
 
+**BACKEND**
+
+1. Express
+2. GraphQL
+3. MongoDB
