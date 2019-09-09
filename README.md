@@ -35,3 +35,5 @@ TO INVESTIGATE
 1. Express
 2. GraphQL
 3. MongoDB
+4. Redis
+5. Docker
