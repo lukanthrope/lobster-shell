@@ -31,6 +31,10 @@ TO INVESTIGATE
 5. Combine previous two in one super cool component ( to lazy load whole module or page when its scrolled inside a viewport)
 6. A11Y
 
+**Cool libs**
+
+1. [WHY did you update](https://github.com/maicki/why-did-you-update "why-did-you-update") 
+
 **BACKEND**
 
 1. Express
