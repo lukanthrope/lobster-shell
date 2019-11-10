@@ -1,0 +1,27 @@
+{
+  "name": "lobster-shell",
+  "version": "1.0.0",
+  "description": "Stupid but technologically super advanced project made by two dreamers",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "cd server && nodemon index.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annslittleflower/lobster-shell.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annslittleflower/lobster-shell/issues"
+  },
+  "homepage": "https://github.com/annslittleflower/lobster-shell#readme"
+}
