@@ -63,7 +63,7 @@ module.exports = {
       if (mail) {
         throw new UserInputError('email is already in use', {
           errors: {
-            email: 'email is already in use',
+            email: 'email is already in use' + mail,
           }
         });
       }

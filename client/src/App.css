@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Arimo|Pacifico&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arimo', sans-serif;
+  height: 1500px;
+}
+
+
+.bgc-op\(white\) {
+  background-color: rgba(255, 255, 255, 0.7)
+}
+
+.bgc\(white\) {
+  background-color: rgb(255, 255, 255)
+}
+
+.pos\(f\) {
+  position: fixed;
+  z-index: 5;
+}
+
+.pos\(a\) {
+  position: absolute;
+}
+
+.pos\(r\) {
+  position: relative;
+}
+
+.w\(100\%\) {
+  width: 100%;
+}
+
+.w\(90\%\) {
+  width: 90%;
+}
+
+.w\(50\%\) {
+  width: 50%;
+}
+
+.h\(70px\) {
+  height: 70px;
+}
+
+.d\(in-flex\) {
+  display: inline-flex;
+}
+
+.just-cont\(sp-between\) {
+  justify-content: space-between;
+}
+
+.just-cont\(center\) {
+  justify-content: center;
+}
+
+.al-items\(center\) {
+  align-items: center;
+}
+
+.f\(r\) {
+  float: right;
+}
+
+.p\(left\:15px\) {
+  padding-left: 15px;
+}
+
+.h\(60\%\) {
+  height: 60%;
+}
+
+.abs-center {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+.font\(logo\) {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.2rem;
+  color: rgb(165, 22, 158);
+}
+
+.fs\(1\.1rem\) {
+  font-size: 1.1rem;
+}
+
+.color\(lobster-pink\) {
+  color: rgb(172, 8, 163);
+}
+
+.fw\(600\) {
+  font-weight: 600;
+}
+
+.pointer:hover {
+  color: rgb(245, 245, 245);
+  cursor: pointer;
+}
+
+.bord\(bot\) {
+  border-bottom: 1.1px solid rgb(165, 22, 158);
+}
+
+.select-off {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+.image-land {
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
+  opacity: 0.8;
+  transition: all 1s linear;
+}
+
+.image-land:hover {
+  opacity: 1;
+}

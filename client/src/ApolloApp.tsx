@@ -24,9 +24,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-const ApolloApp = () => (
+const ApolloApp:React.FC = () => (
   <ApolloProvider client={client}>
-    <App></App>
+    <App />
   </ApolloProvider>
 );
 
