@@ -1,6 +1,4 @@
 import * as React from 'react';
-import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
 
 import HeaderContext from '../Header/HeaderContext';
 import Login from './Login';
