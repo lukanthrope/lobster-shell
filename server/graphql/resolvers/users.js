@@ -26,8 +26,8 @@ module.exports = {
       const user = await User.findOne({ email });
       
       if (!user) {
-        errors.general = 'user not found';
-        throw new UserInputError('user not found', { errors });
+        errors.general = 'wrong credencials';
+        throw new UserInputError('wrong credencials', { errors });
       } 
 
       const match = await bcrypt.compare(password, user.password);
