@@ -6,6 +6,7 @@ import { Mutation } from 'react-apollo';
 
 import { AuthContext } from '../../context/auth';
 import HeaderContext from '../Header/HeaderContext';
+import AuthLink from '../AuthLink';
 
 interface FormValues {
   email: string,
@@ -52,17 +53,54 @@ const Login:React.FC<{}> = () => {
             })}
             >
               {({ isSubmitting }) => (
-                <Form>
-                  { loading && <p>loading..</p> }
-                  <label htmlFor="email">Email Address</label>
-                  <Field type="input" name="email" />
-                  <ErrorMessage name="email" />
-                  <label htmlFor="password">Password</label>
-                  <Field name="password" type="password" />
-                  <ErrorMessage name="password" />
-                  {error && <>{error}</>}
-                  <button type="submit" disabled={isSubmitting}>Submit</button>
-                </Form>
+                <div className="m-t(20%)">
+                  <h2>Log in</h2>
+                  <Form className="m-t(20px) m-b(10px) d(flex) f-dir(col) Form">
+                      { loading && <p>loading..</p> }
+                      <label htmlFor="email">Email Address</label>
+                      <Field 
+                        className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                        type="input" 
+                        name="email" 
+                        />
+                      <div className="errorMes fs(0.8rem)">
+                        <ErrorMessage name="email" />
+                      </div>
+                      <label className="m-t(10px)" htmlFor="password">Password</label>
+                      <Field
+                        className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                        name="password" 
+                        type="password" 
+                        />
+                      <div className="errorMes fs(0.8rem)">
+                        <ErrorMessage name="password" />
+                      </div>
+                      { error && <div className="errorMes fs(0.8rem)">{error}</div> }
+                      <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="
+                          m-t(20px) 
+                          h(35px) 
+                          submit 
+                          bgc(l-pink) 
+                          w(50%) 
+                          bord(none) 
+                          o-line(none) 
+                          pointer 
+                          color(nrw) 
+                          al-s(center)
+                          shad(l-pink)
+                          fs(1.1rem)"
+                        >
+                          Log in
+                      </button>
+                  </Form>
+                  <AuthLink 
+                    haveAnAccount={false} 
+                    redirect={hideAuthWindow} 
+                    />
+                </div>
             )}
             </Formik>
         )}

@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { AuthContext } from '../../context/auth';
 import HeaderContext from '../Header/HeaderContext';
+import AuthLink from '../AuthLink';
 
 interface FormValues {
   email: string,
@@ -36,9 +37,7 @@ const Registration:React.FC = ({}) => {
         login(data.register);
         hideAuthWindow();
       }}
-      onError={() => {
-        setEmailError('email is already in use');
-      }}
+      onError={() => setEmailError('email is already in use')}
       >
         {(addUser:any, { loading }:any) => (
           <Formik 
@@ -53,7 +52,7 @@ const Registration:React.FC = ({}) => {
             validationSchema={
               Yup.object({
                 email: Yup.string()
-                  .email('Invalid email addresss`')
+                  .email('Invalid email address')
                   .required('Required'),
                 username: Yup.string()
                   .min(3, 'Must be at least 3 characters')
@@ -62,36 +61,91 @@ const Registration:React.FC = ({}) => {
                   .min(6, 'Must be 6 characters or more')
                   .required('Required'),
                 confirmPassword: Yup.string()
-                  .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+                  .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                  .required('Passwords must match'),
                 checked: Yup.bool()
                   .oneOf([true], 'Please confirm the terms'),
               })
             }
             >
-              {({ isSubmitting }) => (
-                <Form>
-                  { loading && <p>loading..</p> }
-                  <label htmlFor="email">Email Address</label>
-                  <Field type="input" name="email" />
-                  <ErrorMessage name="email" />
-                  {emailError && <>{emailError}</>}
+              {({ isSubmitting, errors }) => (
+                
+                <div>
+                  <h2 className="m-t(20%)">Sign up</h2>
+                  <Form className="m-t(20px) m-b(10px) d(flex) f-dir(col) Form">
+                    { loading && <p>loading..</p> }
+                    <label htmlFor="email">Email Address</label>
+                    <Field
+                      className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                      type="input" 
+                      name="email" 
+                      />
+                    <div className="errorMes fs(0.8rem)">
+                      <ErrorMessage name="email" />
+                      {emailError}
+                    </div>
 
-                  <label htmlFor="username">Username</label>
-                  <Field type="input" name="username" />
-                  <ErrorMessage name="username" />
+                    <label className="m-t(10px)" htmlFor="username">Username</label>
+                    <Field
+                      className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                      type="input" 
+                      name="username" 
+                      />
+                    <div className="errorMes fs(0.8rem)">
+                      <ErrorMessage name="username" />
+                    </div>
 
-                  <label htmlFor="password">Password</label>
-                  <Field name="password" type="password" />
-                  <ErrorMessage name="password" />
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <Field name="confirmPassword" type="password" />
-                  <ErrorMessage name="confirmPassword" />
+                    <label className="m-t(10px)" htmlFor="password">Password</label>
+                    <Field
+                      className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                      name="password" 
+                      type="password" 
+                      />
+                    <div className="errorMes fs(0.8rem)">
+                      <ErrorMessage name="password" />
+                    </div>
+                    <label className="m-t(10px)" htmlFor="confirmPassword">Confirm Password</label>
+                    <Field
+                      className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
+                      name="confirmPassword" 
+                      type="password" 
+                      />
+                    <div className="errorMes fs(0.8rem)">
+                      <ErrorMessage name="confirmPassword" />
+                    </div>
 
-                  <label htmlFor="checked">I accept terms of the agreement</label>
-                  <Field name="checked" type="checkbox" />
-                  <ErrorMessage name="checked" />
-                  <button type="submit" disabled={isSubmitting}>Submit</button>
-                </Form>
+                    <div className="d(in-flex) m-t(10px)">
+                      <Field name="checked" type="checkbox" />
+                      <label htmlFor="checked" className="fs(0.8rem)">I accept terms of the agreement</label>
+                    </div>
+                    <div className="errorMes fs(0.8rem)">
+                        <ErrorMessage name="checked" />
+                    </div>
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="
+                          m-t(20px) 
+                          h(35px) 
+                          submit 
+                          bgc(l-pink) 
+                          w(50%) 
+                          bord(none) 
+                          o-line(none) 
+                          pointer 
+                          color(nrw) 
+                          al-s(center)
+                          shad(l-pink)
+                          fs(1.1rem)"  
+                      >
+                        Submit
+                    </button>
+                  </Form>
+                  <AuthLink 
+                    haveAnAccount={true} 
+                    redirect={hideAuthWindow} 
+                    />
+                </div>
               )}
             </Formik>
         )}

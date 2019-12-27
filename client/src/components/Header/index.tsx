@@ -22,7 +22,7 @@ const Header:React.FC = () => {
           <h2 className="font(logo) select-off">lobster-shell</h2>
             <div className="color(lobster-pink) fs(1.1rem) fw(600)">
               {
-                authContext.user 
+                user 
                   ? <>
                     <a>{user.username}</a>
                     <a className="p(left:15px) pointer" onClick={() => logout()}>logout</a>

@@ -38,7 +38,6 @@ module.exports = {
       }
 
       const token = generateToken(user);
-      
       return {
         ...user._doc,
         id: user._id,
