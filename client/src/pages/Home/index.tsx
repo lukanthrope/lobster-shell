@@ -1,9 +1,11 @@
 import * as React from 'react';
-import Landingpic from '../../components/Landingpic';
+const Landingpic = React.lazy(() => import('../../components/Landingpic'));
 
 const Home:React.FC = () => (
   <div>
-    <Landingpic />
+    <React.Suspense fallback={<p>loading...</p>}>  
+      <Landingpic />
+    </React.Suspense>
   </div>
 );
 

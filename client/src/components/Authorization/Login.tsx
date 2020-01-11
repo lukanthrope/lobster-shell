@@ -88,6 +88,7 @@ const Login:React.FC<{}> = () => {
                           bord(none) 
                           o-line(none) 
                           pointer 
+                          col-h(white)
                           color(nrw) 
                           al-s(center)
                           shad(l-pink)

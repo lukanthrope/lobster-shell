@@ -11,6 +11,10 @@ body {
 }
 
 
+.overfl-y\(auto\) {
+  overflow-y: auto;
+}
+
 .bgc-op\(white\) {
   background-color: rgba(255, 255, 255, 0.7);
 }
@@ -132,6 +136,10 @@ body {
   padding-top: 10px;
 }
 
+.m-t\(10\%\) {
+  margin-top: 10%;
+}
+
 .m-t\(20\%\) {
   margin-top: 20%;
 }
@@ -144,6 +152,10 @@ body {
   margin-top: 20px;
 }
 
+.m-t\(30px\) {
+  margin-top: 30px;
+}
+
 .m-r\(10px\) {
   margin-right: 10px;
 }
@@ -152,11 +164,27 @@ body {
   margin-bottom: 10px;
 }
 
-.abs-center {
-  top: 0;
-  bottom: 0;
+.m\(auto\) {
   margin: auto;
+}
+
+.top\(0\) {
+  top: 0;
+}
+
+.bottom\(0\) {
+  bottom: 0;
+}
+
+.left\(0\) {
   left: 0;
+}
+
+.left\(20\%\) {
+  left: 90%;
+}
+
+.right\(0\) {
   right: 0;
 }
 
@@ -172,6 +200,15 @@ body {
 
 .fs\(0\.8rem\) {
   font-size: 0.8rem;
+}
+
+.fs\(0\.6rem\) {
+  font-size: 0.6rem;
+}
+
+.text-dec\(none\) {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .Form input {
@@ -194,8 +231,11 @@ body {
   font-weight: 600;
 }
 
-.pointer:hover {
+.col-h\(white\):hover {
   color: rgb(245, 245, 245);
+}
+
+.pointer {
   cursor: pointer;
 }
 
@@ -255,16 +295,6 @@ body {
   opacity: 1;
 }
 
-@media (max-width: 600px) {
-  .w\(30\%\) {
-    width: 100%;
-  }
-
-  .h\(60\%\) {
-    height: 100%;
-  }
-}
-
 @media (max-width: 768px) {
   .w\(30\%\) {
     width: 80%;
@@ -279,3 +309,12 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .w\(30\%\) {
+    width: 100%;
+  }
+
+  .h\(60\%\) {
+    height: 100%;
+  }
+}

@@ -23,16 +23,21 @@ const Authorization = ({ haveAccount }: AuthorizationProps) => {
         d(flex) 
         f-dir(col) 
         pos(f) 
-        bgc(white) 
+        bgc(white)
+        overfl-y(auto) 
         w(30%) 
         ${haveAccount ? 'h(60%)' : 'h(75%)'} 
         bord(l-pink) 
-        left(20%) 
-        abs-center`
+        m(auto) 
+        top(0)
+        bottom(0)
+        right(0)
+        left(0)`
       }
         >
         <div className="
           pointer 
+          col-h(white)
           bord(round) 
           bord(l-pink)
           w(10px) 
