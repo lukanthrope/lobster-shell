@@ -3,6 +3,7 @@ import * as React from 'react';
 import HeaderContext from '../Header/HeaderContext';
 import Login from './Login';
 import Registration from './Registration';
+import CloseButton from '../CloseButton';
 
 interface AuthorizationProps {
   haveAccount: boolean;
@@ -35,22 +36,22 @@ const Authorization = ({ haveAccount }: AuthorizationProps) => {
         left(0)`
       }
         >
-        <div className="
-          pointer 
-          col-h(white)
-          bord(round) 
-          bord(l-pink)
-          w(10px) 
-          h(10px) 
-          fs(1.1rem) 
-          t-al(center)
-          m-t(10px)
-          m-r(10px)
-          " 
-          style={{'alignSelf': 'flex-end'}}
-          onClick={() => handleShowModal()}>
-            &#215;
-        </div>
+        <CloseButton
+          className="
+            pointer 
+            al-s(f-end)
+            col-h(white)
+            bord(round) 
+            bord(l-pink)
+            w(10px) 
+            h(10px) 
+            fs(1.1rem) 
+            t-al(center)
+            m-t(10px)
+            m-r(10px)
+            "
+          onClick={() => handleShowModal()} 
+          />
         <div className="d(flex) just-cont(center)">
           {haveAccount ? <Login /> : <Registration />}
         </div>

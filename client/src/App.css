@@ -116,6 +116,10 @@ body {
   align-self: center;
 }
 
+.al-s\(f-end\) {
+  align-self: flex-end;
+}
+
 .al-items\(center\) {
   align-items: center;
 }
@@ -293,6 +297,16 @@ body {
 
 .image-land:hover {
   opacity: 1;
+}
+
+.file-uploader {
+  border: solid transparent;
+  border-width: 0 0 10px 20px;
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+  -o-transform: translate(250px, -50px) scale(1);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
 }
 
 @media (max-width: 768px) {
