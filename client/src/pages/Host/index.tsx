@@ -52,13 +52,13 @@ const Host = (props: Props) => {
       setImageFiles([...imageFiles, file]);
       setImageURLs([...imageURLs, csv]);
     }
-
-    reader.readAsDataURL(file)
+  
+    reader.readAsDataURL(file);
   }
 
   const removeImage = (index:number):void => {
-    setImageURLs(imageURLs.filter((el, i) => index !== i));
-    setImageFiles(imageFiles.filter((el, i) => index !== i));  
+    setImageURLs(imageURLs.filter((_, i) => index !== i));
+    setImageFiles(imageFiles.filter((_, i) => index !== i));  
   }
 
   return (
@@ -187,11 +187,26 @@ const Host = (props: Props) => {
   )
 };
 
-/*const ADD_POST = gql`
-  mutation addPost(
-
-  )
+const ADD_POST = gql`
+  mutation AddPost(
+    $title: String!
+    $description: String
+    $pictures: [Upload]
+    $panoramas: [Upload]
+    $price: Float
+    $location: String!
+  ) {
+    addPost(
+      postInput: {
+        title: $title
+        description: $description
+        pictures: $pictures
+        panoramas: $panoramas
+        price: $price
+        location: $location
+      }
+    )
+  }
 `;
-*/
 
 export default Host;

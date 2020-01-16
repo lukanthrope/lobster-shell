@@ -1,5 +1,5 @@
 
-const gql = require('graphql-tag');
+const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   type File {
@@ -23,20 +23,16 @@ module.exports = gql`
     createdAt: String!
     userId: ID!
     price: Float
-    pictures: [File]
-    panoramas: [File]
+    pictures: [String]
+    panoramas: [String]
     location: String!
-  }
-
-  input FileInput {
-    url: [String]!
   }
 
   input PostInput {
     title: String!
     description: String
-    pictures: FileInput
-    panoramas: FileInput
+    pictures: [Upload]
+    panoramas: [Upload]
     price: Float
     location: String!
   }
@@ -58,5 +54,6 @@ module.exports = gql`
     login(email: String!, password: String!): User!
 
     addPost(postInput: PostInput): Post!
+    addImage(file: [Upload]): Boolean
   }
 `;
