@@ -19,7 +19,7 @@ module.exports = {
             .pipe(createWriteStream(path.join("static/images", filename)))
             .on("close", res)
         );
-        pics.push(path.join("static/images", filename));
+        pics.push(`static/images/, ${filename}`);
       })
       panoramas.map(async (el) => {
         const { createReadStream, filename } = await el;
@@ -31,6 +31,8 @@ module.exports = {
         );
         pans.push(path.join("static/images", filename));
       })
+
+      console.log(pics);
 
       const newPost = new Post({
         title,

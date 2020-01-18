@@ -11,7 +11,7 @@ const httpLink = createUploadLink({
 });
 
 const authLink = setContext(() => {
-  const token = localStorage.getItem('jwttoken');
+  const token = localStorage.getItem('jwt');
   return {
     headers: {
       Authorization: token ? `Bearer ${token}` : ''

@@ -39,7 +39,7 @@ const Registration:React.FC = ({}) => {
       }}
       onError={() => setEmailError('email is already in use')}
       >
-        {(addUser:any, { loading }:any) => (
+        {(addUser:Function, { loading }:any) => (
           <Formik 
             initialValues={initialValues}
             onSubmit={(values, actions) => {
