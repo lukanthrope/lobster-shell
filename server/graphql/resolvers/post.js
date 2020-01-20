@@ -15,29 +15,30 @@ module.exports = {
         return new Promise(resolve => {
         pictures.map(async (el) => {
           const { createReadStream, filename } = await el;
-          console.log(1);
-          await new Promise(res =>
+          await new Promise((res, rej) =>
             createReadStream()
               .pipe(createWriteStream(path.join("static/images", filename)))
+              .on('error', rej)
               .on("close", res)
           );
           pics.push(`static/images/${filename}`);
+          console.log(pics);
         })
         panoramas.map(async (el) => {
           const { createReadStream, filename } = await el;
-
-          await new Promise(res =>
+          await new Promise((res, rej) =>
             createReadStream()
               .pipe(createWriteStream(path.join("static/images", filename)))
+              .on('error', (e) => {rej(e)})
               .on("close", res)
           );
           pans.push(`static/images/${filename}`);
+          console.log(pans);
         })
         resolve();
       })};
 
-      setTimeout(() => console.log(pans), 10000);
-      function toDB() {
+      function toDB(pics, pans) {
         return new Promise(async resolve => {
           const newPost = new Post({
             title,
@@ -55,7 +56,10 @@ module.exports = {
           
           resolve();
       })};
-
+      setTimeout(() => {
+        console.log(pics);
+        setTimeout(() => console.log(pans), 3000)
+      }, 10000);
       toFS().then(toDB).catch(err => console.log(err));
       return true;
     }
