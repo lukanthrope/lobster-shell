@@ -1,4 +1,3 @@
-const { UserInputError } = require('apollo-server');
 const { createWriteStream } = require("fs");
 const path = require('path');
 const Post = require('../../models/Post');
@@ -11,56 +10,54 @@ module.exports = {
       let pics = [];
       let pans = [];
 
-      function toFS() {
-        return new Promise(resolve => {
-        pictures.map(async (el) => {
-          const { createReadStream, filename } = await el;
-          await new Promise((res, rej) =>
-            createReadStream()
-              .pipe(createWriteStream(path.join("static/images", filename)))
-              .on('error', rej)
-              .on("close", res)
-          );
-          pics.push(`static/images/${filename}`);
-          console.log(pics);
-        })
-        panoramas.map(async (el) => {
-          const { createReadStream, filename } = await el;
-          await new Promise((res, rej) =>
-            createReadStream()
-              .pipe(createWriteStream(path.join("static/images", filename)))
-              .on('error', (e) => {rej(e)})
-              .on("close", res)
-          );
-          pans.push(`static/images/${filename}`);
-          console.log(pans);
-        })
-        resolve();
-      })};
+      pictures.map(async (el) => {
+        pics.push(
+          new Promise(async (resolve) => {
+            const {createReadStream, filename} = await el;
 
-      function toDB(pics, pans) {
-        return new Promise(async resolve => {
-          const newPost = new Post({
-            title,
-            description,
-            price,
-            pictures: pics,
-            panoramas: pans,
-            createdAt: new Date().toISOString(),
-            userId: anon.id,
-            location,
-          });
+            await new Promise((res, rej) =>
+              createReadStream()
+                .pipe(createWriteStream(path.join("static/images", `1${filename}`)))
+                .on('error', rej)
+                .on("close", res)
+            );
+            resolve(`static/images/1${filename}`);
+          })
+          )
+      });
 
-          const res = await newPost.save();
-          console.log(res)
-          
-          resolve();
-      })};
-      setTimeout(() => {
-        console.log(pics);
-        setTimeout(() => console.log(pans), 3000)
-      }, 10000);
-      toFS().then(toDB).catch(err => console.log(err));
+      const picturesForDB = await Promise.all(pics);
+
+      panoramas.map(async (el) => {
+        pans.push(
+          new Promise(async (resolve) => {
+            const {createReadStream, filename} = await el;
+
+            await new Promise((res, rej) =>
+              createReadStream()
+                .pipe(createWriteStream(path.join("static/images", `1${filename}`)))
+                .on('error', rej)
+                .on("close", res)
+            );
+            resolve(`static/images/1${filename}`);
+          }));
+      });
+
+      const panoramasForDB = await Promise.all(pans);
+
+      const newPost = new Post({
+        title,
+        description,
+        price,
+        pictures: picturesForDB,
+        panoramas: panoramasForDB,
+        createdAt: new Date().toISOString(),
+        userId: anon.id,
+        location,
+      });
+
+      const res = await newPost.save();
+      console.log(res)
       return true;
     }
   }

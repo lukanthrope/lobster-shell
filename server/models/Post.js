@@ -6,8 +6,8 @@ const postSchema = new Schema({
   createdAt: String,
   userId: String,
   price: Number,
-  pictures: [String],
-  panoramas: [String],
+  pictures: [{ type: String }],
+  panoramas: [{ type: String }],
   location: String,
 });
 
