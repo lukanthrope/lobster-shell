@@ -53,7 +53,7 @@ module.exports = gql`
     register(registerInput: RegisterInput): User!
     login(email: String!, password: String!): User!
 
-    addPost(postInput: PostInput!): Post!
+    addPost(postInput: PostInput!): Boolean
     addImage(file: [Upload]): Boolean
   }
 `;

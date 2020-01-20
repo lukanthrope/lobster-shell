@@ -204,10 +204,7 @@ const ADD_POST = gql`
         price: $price
         location: $location
       }
-    ) {
-      
-      title
-    }
+    )
   }
 `;
 
