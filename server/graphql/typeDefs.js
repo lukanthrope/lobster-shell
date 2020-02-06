@@ -16,6 +16,12 @@ module.exports = gql`
     createdAt: String!
   }
 
+  type Location {
+    locationName: String!
+    lat: String
+    lon: String
+  }
+
   type Post {
     id: ID!
     title: String!
@@ -25,16 +31,18 @@ module.exports = gql`
     price: Float
     pictures: [String]
     panoramas: [String]
-    location: String!
+    location: Location!
   }
 
   input PostInput {
     title: String!
+    locationName: String!
+    lon: String
+    lat: String
     description: String
     pictures: [Upload]
     panoramas: [Upload]
     price: Float
-    location: String!
   }
 
   input RegisterInput {

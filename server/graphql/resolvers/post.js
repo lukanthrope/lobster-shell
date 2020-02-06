@@ -5,15 +5,36 @@ const checkAuth = require('../../utils/check-auth');
 
 module.exports = {
   Mutation: {
-    async addPost(_, { postInput: { title, description, pictures, panoramas, price, location } }, ctx) {
+    async addPost(_, { 
+      postInput: { 
+        title, 
+        description, 
+        pictures, 
+        panoramas, 
+        price,
+        locationName, 
+        lon, 
+        lat, 
+      } 
+    }, ctx) {
       const anon = checkAuth(ctx);
       let pics = [];
       let pans = [];
 
+      console.log(locationName + '\n' + lon + '\n' + lat);
+
+      /*let queryLocationString = encodeURIComponent(location);
+      console.log(queryLocationString)
+      const URL = `https://nominatim.openstreetmap.org/search/${queryLocationString}?format=json&addressdetails=1&limit=1&polygon_svg=1`;
+      const mapResult = await axios.get(URL);
+      console.log(URL);
+      console.log(mapResult.data[0].lon);
+      console.log(mapResult.data[0].lat);
+      */
       pictures.map(async (el) => {
         pics.push(
           new Promise(async (resolve) => {
-            const {createReadStream, filename} = await el;
+            const { createReadStream, filename } = await el;
 
             await new Promise((res, rej) =>
               createReadStream()
@@ -31,7 +52,7 @@ module.exports = {
       panoramas.map(async (el) => {
         pans.push(
           new Promise(async (resolve) => {
-            const {createReadStream, filename} = await el;
+            const { createReadStream, filename } = await el;
 
             await new Promise((res, rej) =>
               createReadStream()
@@ -53,7 +74,11 @@ module.exports = {
         panoramas: panoramasForDB,
         createdAt: new Date().toISOString(),
         userId: anon.id,
-        location,
+        location: {
+          locationName,
+          lon,
+          lat,
+        },
       });
 
       const res = await newPost.save();

@@ -8,7 +8,11 @@ const postSchema = new Schema({
   price: Number,
   pictures: [{ type: String }],
   panoramas: [{ type: String }],
-  location: String,
+  location: {
+    locationName: String,
+    lon: String,
+    lat: String,
+  },
 });
 
 module.exports = model('Post', postSchema);

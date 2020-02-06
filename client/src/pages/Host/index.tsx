@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { History, LocationState } from "history";
 
 import { AuthContext } from '../../context/auth';
+import { Coordinates, isValidAdress } from '../../utils/maps';
 import ImageUpload from '../../components/ImageUpload';
 
 interface Props extends RouteComponentProps {
@@ -23,7 +24,7 @@ interface FormInterface {
 const initialValues:FormInterface = {
   title: '',
   description: '',
-  price: null,
+  price: 0,
   location: '',
 }
 
@@ -32,6 +33,8 @@ const Host = (props: Props) => {
   const [imageURLs, setImageURLs] = React.useState<string[]>([]);
   const [panoramFiles, setPanoramFiles] = React.useState<HTMLInputElement[]>([]);
   const [panoramURLs, setPanoramURLs] = React.useState<string[]>([]);
+
+  const [coordinates, setCoordinates] = React.useState<Coordinates>({ lon: null, lat: null });
   const PHOTO_LABEL_CLASES:string = `pointer pos(r) t-al(center) m-t(20px) h(35px) submit bgc(l-pink) 
                                     w(50%) bord(none) o-line(none) pointer col-h(white) color(nrw) 
                                     al-s(center) shad(l-pink) fs(1.1rem)`;
@@ -87,15 +90,35 @@ const Host = (props: Props) => {
           {(addPost:Function, { loading }:any) => (
         <Formik 
           initialValues={initialValues}
-          onSubmit={(values, actions) => {
-            console.log({...values, pictures: imageFiles, panoramas: panoramFiles});
-            addPost({ variables: {...values, pictures: imageFiles, panoramas: panoramFiles}});
+          onSubmit={(values:FormInterface) => {
+            addPost({ 
+              variables: {
+                title: values.title,
+                description: values.description,
+                price: values.price,
+                locationName: values.location,
+                lon: coordinates.lon,
+                lat: coordinates.lat,
+                pictures: imageFiles, 
+                panoramas: panoramFiles,
+              }
+            });
           }}
           validationSchema={Yup.object({
             title: Yup.string()
               .required('Required'),
             location: Yup.string()
-              .required('Required'),
+              .required('Required')
+              .test('is-valid-url', 'invalid adress', (value: string):boolean => {
+                isValidAdress(value)
+                  .then((res:Coordinates):void => {
+                    setCoordinates(res);
+                  })
+                  .catch(():void => {
+                    setCoordinates(null);
+                  });
+                  return true;
+              }),
           })}
           >
             {({ isSubmitting }) => (
@@ -126,7 +149,7 @@ const Host = (props: Props) => {
                       className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
                       name="price" 
                       type="number" 
-                      placeholder="free"
+                      min="0"
                       />
                     <div className="errorMes fs(0.6rem)">
                       <ErrorMessage name="price" />
@@ -193,7 +216,9 @@ const ADD_POST = gql`
     $pictures: [Upload]
     $panoramas: [Upload]
     $price: Float
-    $location: String!
+    $locationName: String!
+    $lon: String
+    $lat: String
   ) {
     addPost(
       postInput: {
@@ -202,7 +227,9 @@ const ADD_POST = gql`
         pictures: $pictures
         panoramas: $panoramas
         price: $price
-        location: $location
+        locationName: $locationName
+        lon: $lon
+        lat: $lat   
       }
     )
   }
