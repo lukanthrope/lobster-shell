@@ -38,6 +38,7 @@ jspm_packages/
 server/static
 client/package-lock.json
 server/package-lock.json
+package-lock.json
 
 
 # TypeScript v1 declaration files
