@@ -6,6 +6,7 @@ import { AuthProvider } from './context/auth';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Host from './pages/Host';
+import Post from './pages/Post';
 import NoPageFound from './pages/NoPageFound';
 
 import 'ungrid';
@@ -20,6 +21,7 @@ const App:React.FC = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/host" component={Host} />
+        <Route exact path="/:placeId" component={Post} />
         <Route component={NoPageFound} />
       </Switch>
     </Router>

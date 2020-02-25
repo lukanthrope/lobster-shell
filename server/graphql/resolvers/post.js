@@ -23,14 +23,6 @@ module.exports = {
 
       console.log(locationName + '\n' + lon + '\n' + lat);
 
-      /*let queryLocationString = encodeURIComponent(location);
-      console.log(queryLocationString)
-      const URL = `https://nominatim.openstreetmap.org/search/${queryLocationString}?format=json&addressdetails=1&limit=1&polygon_svg=1`;
-      const mapResult = await axios.get(URL);
-      console.log(URL);
-      console.log(mapResult.data[0].lon);
-      console.log(mapResult.data[0].lat);
-      */
       pictures.map(async (el) => {
         pics.push(
           new Promise(async (resolve) => {
@@ -84,6 +76,32 @@ module.exports = {
       const res = await newPost.save();
       console.log(res)
       return true;
+    }
+  },
+  Query: {
+    async getPosts(_, { limit, offset }) {
+      try {
+        const res = await Post
+          .find({ location: { $ne: null } })
+          .sort({ createdAt: -1 })
+          .limit(limit)
+          .skip(offset);
+        return res;
+      } catch(err) {
+        throw new Error(err);
+      }
+    },
+    async getPost(_, { postId }) {
+      try {
+        const post = await Post.findById(postId);
+        if (post) {
+          return post;
+        } else {
+          throw new Error('Post not found');
+        }
+      } catch (err) {
+        throw new Error(err)
+      }
     }
   }
 }

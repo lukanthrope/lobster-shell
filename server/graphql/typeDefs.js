@@ -53,8 +53,8 @@ module.exports = gql`
   }
 
   type Query {
-    getPosts: [Post]
-    getPost(postId: ID!): Post
+    getPosts(limit: Int!, offset: Int): [Post]
+    getPost(postId: ID!): Post!
   }
 
   type Mutation {

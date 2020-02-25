@@ -7,7 +7,6 @@
 
 body {
   font-family: 'Arimo', sans-serif;
-  height: 1500px;
 }
 
 
@@ -16,7 +15,7 @@ body {
 }
 
 .bgc-op\(white\) {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .bgc-op\(black\) {
@@ -25,6 +24,10 @@ body {
 
 .bgc\(white\) {
   background-color: rgb(255, 255, 255);
+}
+
+.bgc-hov\(gray\):hover {
+  background-color: rgb(204, 189, 189);
 }
 
 .bgc\(l-pink\) {
@@ -42,6 +45,10 @@ body {
 
 .pos\(r\) {
   position: relative;
+}
+
+.w\(auto\) {
+  width: auto;
 }
 
 .w\(100\%\) {
@@ -62,6 +69,18 @@ body {
 
 .w\(10px\) {
   width: 20px;
+}
+
+.m-w\(1335px\) {
+  max-width: 1335px;
+}
+
+.m-w\(500px\) {
+  max-width: 500px;
+}
+
+.m-w\(300px\) {
+  max-width: 300px;
 }
 
 .h\(100\%\) {
@@ -104,12 +123,36 @@ body {
   flex-direction: row;
 }
 
+.f-wrap\(wrap\) {
+  flex-wrap: wrap;
+}
+
+.f-flow\(row-wrap\) {
+  flex-flow: row wrap;
+}
+
+.f-basis\(33\%\) {
+  flex-basis: 33%;
+}
+
 .just-cont\(sp-between\) {
   justify-content: space-between;
 }
 
+.just-cont\(sp-around\) {
+  justify-content: space-around;
+}
+
+.just-cont\(start\) {
+  justify-content: flex-start;
+}
+
 .just-cont\(center\) {
   justify-content: center;
+}
+
+.al-cont\(start\) {
+  align-content: flex-start;
 }
 
 .al-s\(center\) {
@@ -124,8 +167,21 @@ body {
   align-items: center;
 }
 
+.al-items\(start\) {
+  align-items: flex-start;
+}
+
 .t-al\(center\) {
   text-align: center;
+}
+
+.box {
+  display: inline-block;
+  width: 22.08%;
+}
+
+.box:nth-child(n) {
+  margin-left:calc(22.08% * .1);
 }
 
 .f\(r\) {
@@ -331,4 +387,11 @@ body {
   .h\(60\%\) {
     height: 100%;
   }
+}
+
+
+.leaflet-container {
+  height: 400px;
+  width: 80%;
+  margin: 0 auto;
 }

@@ -37,6 +37,9 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/static': 'http://localhost:5000',
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
