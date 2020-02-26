@@ -27,37 +27,24 @@ const Post = (props:any) => {
   if (error) 
     return <div><h1>No post found</h1></div>
 
+  if (loading)
+    return <h1>Loading..</h1>
+
   return (
 
-      <div>
+    <div className="w(100%) m-t(10%)">
+      <h2>{data.getPost.title}</h2>
+      <article>{data.getPost.description}</article>
+      <p>{data.getPost.location.locationName}</p>
+      {lat && lon &&
+        <MapDiv lat={lat} lon={lon} address={data.getPost.location.locationName}  />
+      }
 
-        {lat && lon &&
-          <MapDiv lat={lat} lon={lon} />
-        }
-      </div>
+      <button>Rent</button>
+    </div>
 
   )
 }
-
-/*
-<div className="m-t(20%)">
-      
-      <div className="m-t(20%)" style={{ 'width': '400px', 'height': '400px' }}>
-      <Map center={[lat, lon]} zoom={13}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
-        <Marker position={[lat, lon]}>
-          <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-        </Marker>
-      </Map>
-      </div>
-
-      
-      
-    </div>
-      */
 
 const GET_POST = gql`
   query getPost($postId: ID!) {

@@ -1,0 +1,7 @@
+.map {
+  position: fixed;
+  width: 70vw;
+  bottom: 0;
+  right: 0;
+  left: calc(100vw - 63vw);
+}
