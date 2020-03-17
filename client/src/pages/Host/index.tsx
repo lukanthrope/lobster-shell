@@ -9,6 +9,7 @@ import { History, LocationState } from "history";
 import { AuthContext } from '../../context/auth';
 import { Coordinates, isValidAdress } from '../../utils/maps';
 import ImageUpload from '../../components/ImageUpload';
+import Spinner from '../../components/Spinner';
 
 interface Props extends RouteComponentProps {
   history: History<LocationState>;
@@ -123,6 +124,7 @@ const Host = (props: Props) => {
           >
             {({ isSubmitting }) => (
               <div className="m(auto) w(30%)">
+                { isSubmitting && <Spinner /> }
                 <h2 className="font(logo)">Be a host</h2>
                 <Form className="m-t(30px) d(flex) f-dir(col) Form">
                     

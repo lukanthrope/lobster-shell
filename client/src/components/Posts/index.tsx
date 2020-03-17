@@ -1,7 +1,9 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+
 import PostPreview from './PostPreview';
+import Spinner from '../../components/Spinner';
 
 export interface Location {
   locationName: string;
@@ -12,6 +14,7 @@ export interface Location {
 export interface Post {
   id: string;
   title: string;
+  userId?: string;
   pictures?: Array<string>;
   panoramas?: Array<string>;
   description?: string;
@@ -44,7 +47,7 @@ const Posts = () => {
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
           {
-            loading ? <h2>Loading...</h2>
+            loading ? <Spinner />
             :
             data.getPosts && !error &&
             data.getPosts.map((el: Post) => 
@@ -62,11 +65,12 @@ const Posts = () => {
         </div>
 
         <button 
-          className="m-t(20px) 
+          className="m-t(20px)
+                    m-b(30px) 
                     h(35px) 
                     submit 
                     bgc(l-pink) 
-                    w(50%) 
+                    w(120px) 
                     bord(none) 
                     o-line(none) 
                     pointer 

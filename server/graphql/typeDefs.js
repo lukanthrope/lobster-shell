@@ -53,7 +53,7 @@ module.exports = gql`
   }
 
   type Query {
-    getPosts(limit: Int!, offset: Int): [Post]
+    getPosts(limit: Int!, offset: Int, request: String): [Post]
     getPost(postId: ID!): Post!
   }
 

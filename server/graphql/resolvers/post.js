@@ -74,19 +74,46 @@ module.exports = {
       });
 
       const res = await newPost.save();
-      console.log(res)
+      
       return true;
     }
   },
   Query: {
-    async getPosts(_, { limit, offset }) {
+    async getPosts(_, { limit, offset, request }) {
       try {
-        const res = await Post
-          .find({ location: { $ne: null } })
-          .sort({ createdAt: -1 })
-          .limit(limit)
-          .skip(offset);
-        return res;
+        if (request) {
+          const req = request.split(/[.,\/ \t\n\v\f\r\s -]/).filter(el => el.trim() !== '');
+          const re = new RegExp(req.join(".*"), 'gi');
+          
+          const res = await Post
+            .find({ 
+              $or: [ { 
+                "location.locationName": { $regex: re } 
+                }, 
+                { 
+                  description: { 
+                    $regex: re 
+                  } 
+                },
+                {
+                  title: {
+                    $regex: re
+                  }
+                }
+              ] })
+            .sort({ createdAt: -1 })
+            .limit(limit)
+            .skip(offset);
+
+          return res;
+        } else {
+          const res = await Post
+            .find({ location: { $ne: null } })
+            .sort({ createdAt: -1 })
+            .limit(limit)
+            .skip(offset);
+          return res;
+        }
       } catch(err) {
         throw new Error(err);
       }

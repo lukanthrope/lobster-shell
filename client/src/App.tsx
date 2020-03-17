@@ -9,7 +9,7 @@ import Host from './pages/Host';
 import Post from './pages/Post';
 import NoPageFound from './pages/NoPageFound';
 
-import 'ungrid';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import './App.css';
 import './index.css'; 
 

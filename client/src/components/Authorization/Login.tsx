@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 
+import Spinner from '../../components/Spinner';
 import { AuthContext } from '../../context/auth';
 import HeaderContext from '../Header/HeaderContext';
 import AuthLink from '../AuthLink';
@@ -56,7 +57,7 @@ const Login:React.FC<{}> = () => {
                 <div className="m-t(20%)">
                   <h2>Log in</h2>
                   <Form className="m-t(20px) m-b(10px) d(flex) f-dir(col) Form">
-                      { loading && <p>loading..</p> }
+                      { loading && <Spinner /> }
                       <label htmlFor="email">Email Address</label>
                       <Field 
                         className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
