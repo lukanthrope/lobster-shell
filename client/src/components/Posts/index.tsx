@@ -2,6 +2,7 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
+import Search from '../../components/Search';
 import PostPreview from './PostPreview';
 import Spinner from '../../components/Spinner';
 
@@ -30,6 +31,7 @@ interface PostData {
 interface Variables {
   offset: number;
   limit: number;
+  request?: string; 
 }
 
 const Posts = () => {
@@ -43,6 +45,7 @@ const Posts = () => {
 
   return (
     <div className="t-al(center) m-t(20px)">
+      <Search find={ fetchMore } />
       <h2>Recent places:</h2>
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
@@ -62,6 +65,9 @@ const Posts = () => {
                 />
             )
           }
+          {
+            !loading && data.getPosts.length === 0 && <h2>No posts found</h2>
+          }
         </div>
 
         <button 
@@ -77,7 +83,6 @@ const Posts = () => {
                     col-h(white)
                     color(nrw) 
                     al-s(center)
-                    shad(l-pink)
                     fs(1.1rem)"
             onClick={() => fetchMore({
               variables: {
@@ -98,8 +103,8 @@ const Posts = () => {
 }
 
 const FETCH_POSTS = gql`
-  query getPosts($limit: Int!, $offset: Int) {
-    getPosts(limit: $limit, offset: $offset) {
+  query getPosts($limit: Int!, $offset: Int, $request: String) {
+    getPosts(limit: $limit, offset: $offset, request: $request) {
       id
       title
       description

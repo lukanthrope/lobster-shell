@@ -81,7 +81,7 @@ module.exports = {
   Query: {
     async getPosts(_, { limit, offset, request }) {
       try {
-        if (request) {
+        if (request && request.trim() !== '') {
           const req = request.split(/[.,\/ \t\n\v\f\r\s -]/).filter(el => el.trim() !== '');
           const re = new RegExp(req.join(".*"), 'gi');
           

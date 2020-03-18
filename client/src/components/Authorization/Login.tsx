@@ -34,7 +34,7 @@ const Login:React.FC<{}> = () => {
       }}
       onError={() => setError('wrong credencials')}
       >
-        {(signin:Function, { loading }:any) => (
+        { (signin:Function, { loading }:any) => (
           <Formik 
             initialValues={initialValues}
             onSubmit={(values, actions) => {
