@@ -5,7 +5,10 @@ const postSchema = new Schema({
   description: String,
   createdAt: String,
   userId: String,
-  price: Number,
+  schedule: [{ 
+    fromDate: Date, 
+    toDate: Date,
+  }],
   pictures: [{ type: String }],
   panoramas: [{ type: String }],
   location: {

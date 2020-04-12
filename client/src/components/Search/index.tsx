@@ -1,67 +1,95 @@
 import * as React from 'react';
-import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import axios from 'axios';
+import { debounce } from 'lodash';
+
+import { LIMIT_GET_POSTS, PostData } from '../Posts';
 
 interface Props {
   find: Function;
+  setSearchParam?: Function;
 }
 
-interface FormValues {
-  searchField: string;
+interface FetchMore {
+  fetchMoreResult: PostData;
 }
 
-const initialValues:FormValues = {
-  searchField: '',
-}
+export const SUGGESTION_NUMBER:number = 5;
 
-const Search = ({ find }: Props) => 
-  <Formik
-    initialValues={ initialValues }
-    onSubmit={ values => find({ 
-      variables: { 
-        offset: 0, 
-        limit: 10, 
-        request: values.searchField 
-      },
-      updateQuery: (prev:any, { fetchMoreResult }:any) => {
-        console.log(fetchMoreResult)
-        if (!fetchMoreResult) return null;
-        return Object.assign({}, { getPosts: fetchMoreResult.getPosts})
-      }
-    })}
-    validationSchema={
-      Yup.object({
-        searchField: Yup.string()
-          .required('Required')
-      })
+const Search = ({ find, setSearchParam }: Props) => {
+  const [searchVal, setSearchVal] = React.useState<string>('');
+  const [suggestions, setSuggestions] = React.useState(null);
+  const delayedQuery = React.useCallback(debounce(async (q: string) => {
+    const res = await axios.get(`http://photon.komoot.de/api/?q=${q}&limit=${SUGGESTION_NUMBER}`);
+    setSuggestions(res);
+  }, 500), []);
+
+  const OnChange = async (e: React.ChangeEvent<HTMLInputElement>) => { 
+      setSearchVal(e.target.value);
+      if (e.target.value.trim() !== '')
+        delayedQuery(e.target.value);
+  };
+
+  const OnSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchVal.trim() !== '') {
+      setSearchParam(searchVal);
+      find({ 
+        variables: { 
+          offset: 0, 
+          limit: LIMIT_GET_POSTS, 
+          request: searchVal,
+        },
+        updateQuery: (_:any, { fetchMoreResult }:FetchMore) => {
+          console.log(fetchMoreResult)
+          if (!fetchMoreResult) 
+            return null;
+          return Object.assign({}, { getPosts: fetchMoreResult.getPosts});
+        }
+      });
     }
-    >
-      {({ isSubmitting }) => 
-        <Form>
-          <Field type="input" name="searchField" />
-          <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="
-                m-t(20px) 
-                h(35px) 
-                submit 
-                bgc(l-pink) 
-                w(30px)
-                bord(none) 
-                o-line(none) 
-                pointer 
-                col-h(white)
-                color(nrw) 
-                al-s(center)
-                
-                fs(1.1rem)"  
-            >
-              <i className="material-icons">
-                search
-              </i>
-          </button>
-        </Form>
-      }
-  </Formik>
+  }
+
+  return (
+    <form className="" onSubmit={(e) => OnSubmit(e)}>
+      <input 
+        list="search" 
+        type="input" 
+        name="searchField" 
+        value={searchVal} 
+        onChange={(e) => OnChange(e)} 
+        />
+      <datalist id="search">
+        { 
+          suggestions?.data.features.map((el:any, index:number) => 
+            <option 
+              value={`${el.properties.name} ${el.properties?.street ? el.properties?.street : ''}`} 
+              key={index} 
+              />
+            )
+        }
+      </datalist>
+      <button 
+        type="submit" 
+        className="
+            m-t(20px) 
+            h(35px) 
+            submit 
+            bgc(l-pink) 
+            w(30px)
+            bord(none) 
+            o-line(none) 
+            pointer 
+            col-h(white)
+            color(nrw) 
+            al-s(center)
+            
+            fs(1.1rem)"  
+        >
+          <i className="material-icons">
+            search
+          </i>
+      </button>
+    </form>
+  )
+}
 export default Search;

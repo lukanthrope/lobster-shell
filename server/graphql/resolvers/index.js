@@ -1,5 +1,6 @@
 const usersResolvers = require('./users');
 const postsResolvers = require('./post');
+const typesResolvers = require('./types');
 
 module.exports = {
   Query: {
@@ -9,4 +10,5 @@ module.exports = {
     ...usersResolvers.Mutation,
     ...postsResolvers.Mutation,
   },
+  Date: typesResolvers.Date,
 }

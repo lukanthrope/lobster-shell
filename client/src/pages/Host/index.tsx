@@ -18,14 +18,12 @@ interface Props extends RouteComponentProps {
 interface FormInterface {
   title: string;
   description: string;
-  price: number;
   location: string;
 }
 
 const initialValues:FormInterface = {
   title: '',
   description: '',
-  price: 0,
   location: '',
 }
 
@@ -45,7 +43,7 @@ const Host = (props: Props) => {
 
   React.useEffect(() => {
     if (!user)
-      props.history.push('/');  
+      props.history.push('/');
   }, []);
 
   const handleImageChange = (e:any, isPanoram:boolean):void => {
@@ -85,10 +83,10 @@ const Host = (props: Props) => {
     <div className="m-t(10%) w(100%)">
       <Mutation 
         mutation={ADD_POST} 
-        onCompleted={(data: any) => console.log(data)}
+        onCompleted={() => props.history.push('/')}
         onError={(error: any) => console.log(error)}
         >
-          {(addPost:Function, { loading }:any) => (
+          {(addPost:Function) => (
         <Formik 
           initialValues={initialValues}
           onSubmit={(values:FormInterface) => {
@@ -96,7 +94,6 @@ const Host = (props: Props) => {
               variables: {
                 title: values.title,
                 description: values.description,
-                price: values.price,
                 locationName: values.location,
                 lon: coordinates.lon,
                 lat: coordinates.lat,
@@ -146,16 +143,7 @@ const Host = (props: Props) => {
                     <div className="errorMes fs(0.6rem)">
                       <ErrorMessage name="location" />
                     </div>
-                    <label className="m-t(10px)" htmlFor="price">Price</label>
-                    <Field
-                      className="o-line(none) bord(none) bord(bot) fs(1.1rem)" 
-                      name="price" 
-                      type="number" 
-                      min="0"
-                      />
-                    <div className="errorMes fs(0.6rem)">
-                      <ErrorMessage name="price" />
-                    </div>
+
                     <label className="m-t(10px)" htmlFor="description">Description:</label>
                     <Field
                       className="o-line(none) bord(none) bord(bot) m-t(10px) fs(1.1rem)" 
@@ -217,7 +205,6 @@ const ADD_POST = gql`
     $description: String
     $pictures: [Upload]
     $panoramas: [Upload]
-    $price: Float
     $locationName: String!
     $lon: String
     $lat: String
@@ -228,7 +215,6 @@ const ADD_POST = gql`
         description: $description
         pictures: $pictures
         panoramas: $panoramas
-        price: $price
         locationName: $locationName
         lon: $lon
         lat: $lat   

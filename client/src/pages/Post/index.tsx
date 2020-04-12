@@ -1,13 +1,16 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { ReactImageGalleryItem } from 'react-image-gallery';
+import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 
 import { Post as PostResponse } from '../../components/Posts';
 import MapDiv from '../../components/MapDiv';
 import Panoram from '../../components/Panoram';
-import Gallery from '../../components/Gallery';
 import Spinner from '../../components/Spinner';
+import Book from '../../components/Book';
+
+import "react-image-gallery/styles/css/image-gallery.css";
+import "./styles.css";
 
 interface Vars {
   postId: string;
@@ -17,18 +20,22 @@ interface GetPost {
   getPost: PostResponse;
 }
 
+export const PostContext = React.createContext(null);
+
 const Post = (props:any) => {
   const { data, loading, error } = useQuery<GetPost, Vars>(GET_POST, {
     variables: {
       postId: props.match.params.placeId,
     }
   });
+
+  let isFullScreen:boolean = false;
   const lat = Number(data?.getPost.location.lat || 0);
   const lon = Number(data?.getPost.location.lon || 0);
   const items:Array<ReactImageGalleryItem> = [];
 
   const RenderPanorama = (item:ReactImageGalleryItem) =>
-    <Panoram url={item.original} />;
+    <Panoram url={item.original} height={isFullScreen ? '100vh' : '250px'} />;
 
   React.useEffect(() => {
     if (data) {
@@ -38,7 +45,7 @@ const Post = (props:any) => {
           original: el,
         })
       );
-        console.log(data.getPost.userId)
+        
       data.getPost.panoramas.map((el:string) => 
         items.push({ 
           thumbnail: el, 
@@ -47,7 +54,7 @@ const Post = (props:any) => {
         })
       );
     }
-  }, [data]);
+  });
 
   if (error) 
     return <h1>No post found</h1>
@@ -62,15 +69,24 @@ const Post = (props:any) => {
         <h1>{data.getPost.title}</h1>
         <article>{data.getPost.description}</article>
         <p>{data.getPost.location.locationName}</p>
-        <h2>{data.getPost.price <= 0 ? `free` : data.getPost.price}</h2>
+        
         
         { 
           (data.getPost.pictures || data.getPost.panoramas) && 
           (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0) && 
-            <Gallery items={items} /> 
+          <ImageGallery 
+            items={items}
+            onScreenChange={() => { isFullScreen = !isFullScreen }} 
+          />
         }
-        
-        <button>Rent</button>
+
+        <PostContext.Provider 
+          value={{
+            postId: props.match.params.placeId,
+            schedule: data.getPost.schedule,
+          }}>
+          <Book />
+        </PostContext.Provider>
       </div>
       {lat && lon &&
         <MapDiv 
@@ -90,7 +106,10 @@ const GET_POST = gql`
       userId
       title
       description
-      price
+      schedule {
+        fromDate
+        toDate
+      }
       location {
         locationName
         lon

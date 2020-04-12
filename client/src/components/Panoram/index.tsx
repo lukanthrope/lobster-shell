@@ -6,18 +6,17 @@ import { Config } from './panorama.types';
 
 interface Props {
   url: string;
+  height: string;
 }
 
-const Panoram = ({ url }: Props) => 
+const Panoram = ({ url, height }: Props) => 
   <Pannellum
     image={url}
+    height={height}
     pitch={10}
     yaw={180}
     hfov={110}
     autoLoad
-    onLoad={() => {
-      console.log("panorama loaded");
-    }}
   />
 
 export default Panoram;

@@ -12,19 +12,25 @@ export interface Location {
   lat?: string;
 }
 
+export interface Schedule {
+  fromDate: Date;
+  toDate: Date;
+}; 
+
 export interface Post {
   id: string;
   title: string;
   userId?: string;
+  schedule?: Array<Schedule>;
   pictures?: Array<string>;
   panoramas?: Array<string>;
   description?: string;
-  price?: number;
+  isTaken?: boolean;
   location: Location;
   createdAt?: string;
 };
 
-interface PostData {
+export interface PostData {
   getPosts: Post[];
 }
 
@@ -34,70 +40,78 @@ interface Variables {
   request?: string; 
 }
 
+export const LIMIT_GET_POSTS:number = 12;
+
 const Posts = () => {
+  const [searchParam, setSearchParam] = React.useState<string>('');
   const { loading, error, data, fetchMore } = useQuery<PostData, Variables>(FETCH_POSTS, {
     variables: {
       offset: 0,
-      limit: 10,
+      limit: LIMIT_GET_POSTS,
+      request: searchParam,
     },
     fetchPolicy: "cache-and-network",
   });
 
   return (
-    <div className="t-al(center) m-t(20px)">
-      <Search find={ fetchMore } />
-      <h2>Recent places:</h2>
+    <div className="t-al(center) m-t(30px) m-b(100px)">
+      <Search 
+        find={ fetchMore } 
+        setSearchParam={ setSearchParam }
+        />
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
           {
             loading ? <Spinner />
             :
-            data.getPosts && !error &&
-            data.getPosts.map((el: Post) => 
+            data?.getPosts && !error &&
+            data?.getPosts.map((el: Post) => 
               <PostPreview
                 id={el.id}
                 title={el.title}
                 picture={el.pictures[0]}
                 description={el.description}
-                price={el.price}  
                 location={el.location.locationName}
                 key={el.id} 
                 />
             )
           }
           {
-            !loading && data.getPosts.length === 0 && <h2>No posts found</h2>
+            !loading && data?.getPosts.length === 0 && <h2>No posts found</h2>
           }
         </div>
 
-        <button 
-          className="m-t(20px)
-                    m-b(30px) 
-                    h(35px) 
-                    submit 
-                    bgc(l-pink) 
-                    w(120px) 
-                    bord(none) 
-                    o-line(none) 
-                    pointer 
-                    col-h(white)
-                    color(nrw) 
-                    al-s(center)
-                    fs(1.1rem)"
-            onClick={() => fetchMore({
-              variables: {
-                offset: data.getPosts.length
-              },
-              updateQuery: (prev: PostData, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                return Object.assign({}, prev, {
-                  getPosts: [...prev.getPosts, ...fetchMoreResult.getPosts]
-                });
-              }
-            })}
-          >
-          More
-        </button>
+        { data?.getPosts.length % 12 === 0 &&
+          <button 
+            className="m-t(20px)
+                      m-b(30px) 
+                      h(35px) 
+                      submit 
+                      bgc(l-pink) 
+                      w(120px) 
+                      bord(none) 
+                      o-line(none) 
+                      pointer 
+                      col-h(white)
+                      color(nrw) 
+                      al-s(center)
+                      fs(1.1rem)"
+              onClick={() => fetchMore({
+                variables: {
+                  offset: data.getPosts.length,
+                  request: searchParam,
+                },
+                updateQuery: (prev: PostData, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev;
+                  return Object.assign({}, prev, {
+                    getPosts: [...prev.getPosts, ...fetchMoreResult.getPosts]
+                  });
+                }
+              })}
+            >
+            More
+          </button>
+        }
     </div>
   )
 }
@@ -108,7 +122,7 @@ const FETCH_POSTS = gql`
       id
       title
       description
-      price
+      
       location {
         locationName
       }

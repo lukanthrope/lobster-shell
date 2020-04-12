@@ -7,11 +7,11 @@ interface LinkProps {
 
 const AuthLink = ({ haveAnAccount, redirect }: LinkProps) => (
   <a className="fs(0.8rem)">{haveAnAccount ? 'Have an account?': 'Have no account?'} 
-      <a 
+      <span 
       className="pointer col-h(white) color(lobster-pink)"
       onClick={() => haveAnAccount ? redirect(true, true): redirect(false, true)}
       >{haveAnAccount ? ' Log in': ' Register'}
-    </a>
+    </span>
   </a>
 );
 

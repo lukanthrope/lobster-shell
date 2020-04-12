@@ -3,8 +3,9 @@ import ImageGallery, { ReactImageGalleryProps } from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const Gallery = (props: ReactImageGalleryProps) =>
-  <div>
-    <ImageGallery items={props.items} />
-  </div>
+  <ImageGallery 
+    items={props.items}
+    onScreenChange={props.onScreenChange} 
+    />
 
 export default Gallery;

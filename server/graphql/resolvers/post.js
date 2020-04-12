@@ -1,5 +1,6 @@
 const { createWriteStream } = require("fs");
 const path = require('path');
+const moment = require('moment');
 const Post = require('../../models/Post');
 const checkAuth = require('../../utils/check-auth');
 
@@ -11,7 +12,6 @@ module.exports = {
         description, 
         pictures, 
         panoramas, 
-        price,
         locationName, 
         lon, 
         lat, 
@@ -61,7 +61,7 @@ module.exports = {
       const newPost = new Post({
         title,
         description,
-        price,
+        schedule: [],
         pictures: picturesForDB,
         panoramas: panoramasForDB,
         createdAt: new Date().toISOString(),
@@ -73,9 +73,39 @@ module.exports = {
         },
       });
 
-      const res = await newPost.save();
+      await newPost.save();
       
       return true;
+    },
+    async bookPost(_, { postId, start, end }) {
+      try {
+        const post = await Post.findById(postId);
+        console.log(post);
+        if (!post)
+          throw new Error('Post not found');
+        
+        const { schedule } = post;
+        
+        for (let i = 0; i < schedule.length; i++) {
+          if ((start > schedule[i].fromDate.getTime() && start < schedule[i].toDate.getTime()) ||
+          (end > schedule[i].fromDate.getTime() && end < schedule[i].toDate.getTime())) {
+            return false;
+          }
+        }
+      
+        await Post.updateOne({ _id: postId },
+           { 
+             $push: {  
+              "schedule": { 
+               "fromDate": new Date(start), 
+               "toDate": new Date(end), 
+             } 
+            } 
+          });
+        return true;
+      } catch(err) {
+        throw new Error(err);
+      }
     }
   },
   Query: {
@@ -129,6 +159,6 @@ module.exports = {
       } catch (err) {
         throw new Error(err)
       }
-    }
-  }
+    },
+  },
 }

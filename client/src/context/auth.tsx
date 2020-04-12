@@ -5,7 +5,7 @@ const codedToken:string = localStorage.getItem('jwt');
 type State = {
   user: any
 }
-const initialState:any = {
+const initialState:State = {
   user: null
 }
 
@@ -15,7 +15,7 @@ if (codedToken) {
   if (decodedToken.exp * 1000 < Date.now()) {
     localStorage.removeItem('jwt');
   } else {
-    initialState.user = decodedToken;;
+    initialState.user = decodedToken;
   }
 }
 

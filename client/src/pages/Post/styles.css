@@ -1,0 +1,8 @@
+.image-gallery-slide img {
+  height: 250px;
+  width: auto;
+}
+
+.fullscreen .image-gallery-slide img {
+  height: auto;
+}

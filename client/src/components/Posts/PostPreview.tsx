@@ -8,11 +8,11 @@ interface PostProps {
   title: string;
   picture?: string;
   description?: string;
-  price?: number;
+  isTaken?: boolean;
   location: string;
 };
 
-const PostPreview = ({ title, description, picture, price, location, id }: PostProps) => 
+const PostPreview = ({ title, description, picture, isTaken, location, id }: PostProps) => 
   <div className="f-basis(33%)">
     
       <Link className="text-dec(none)" to={id}>
@@ -26,7 +26,6 @@ const PostPreview = ({ title, description, picture, price, location, id }: PostP
         <h4>{location}</h4>
       </span>
       <p>{description || ''}</p>
-      <span>{price || 'free'}</span>
     
   </div>
 
