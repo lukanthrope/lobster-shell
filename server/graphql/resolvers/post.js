@@ -80,7 +80,7 @@ module.exports = {
     async bookPost(_, { postId, start, end }) {
       try {
         const post = await Post.findById(postId);
-        console.log(post);
+       
         if (!post)
           throw new Error('Post not found');
         
@@ -97,8 +97,8 @@ module.exports = {
            { 
              $push: {  
               "schedule": { 
-               "fromDate": new Date(start), 
-               "toDate": new Date(end), 
+                "fromDate": new Date(start), 
+                "toDate": new Date(end), 
              } 
             } 
           });
@@ -150,8 +150,17 @@ module.exports = {
     },
     async getPost(_, { postId }) {
       try {
-        const post = await Post.findById(postId);
+        let post = await Post.findById(postId);
         if (post) {
+          const len = post.schedule.length;
+          post.schedule = post.schedule.filter(el => 
+            el.toDate.getTime() > new Date().getTime());
+          
+          if (len > post.schedule.length) {
+            await Post.updateOne({ _id: postId }, {
+              "schedule": post.schedule
+            });
+          }
           return post;
         } else {
           throw new Error('Post not found');

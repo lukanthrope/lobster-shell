@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 
-import { Post as PostResponse } from '../../components/Posts';
+import { Post as PostResponse, Schedule } from '../../components/Posts';
 import MapDiv from '../../components/MapDiv';
 import Panoram from '../../components/Panoram';
 import Spinner from '../../components/Spinner';
@@ -16,45 +16,57 @@ interface Vars {
   postId: string;
 }
 
-interface GetPost {
+export interface GetPost {
   getPost: PostResponse;
 }
 
 export const PostContext = React.createContext(null);
 
 const Post = (props:any) => {
+  const [items, setItems] = React.useState<Array<ReactImageGalleryItem>>([]);
   const { data, loading, error } = useQuery<GetPost, Vars>(GET_POST, {
     variables: {
       postId: props.match.params.placeId,
+    },
+    onCompleted(data) {
+      data.getPost.pictures.map((el:string) => 
+        setItems(prev => [
+            ...prev,
+            { 
+              thumbnail: el, 
+              original: el,
+            }
+        ])
+      );
+
+      data.getPost.panoramas.map((el:string) => 
+        setItems(prev => [
+          ...prev ,
+          { 
+            thumbnail: el, 
+            original: el,
+            renderItem: RenderPanorama,
+          }
+        ])
+      );
+      
+      setBookList(data.getPost.schedule);
     }
   });
-
-  let isFullScreen:boolean = false;
+  const [bookList, setBookList] = React.useState<Schedule[]>(null);
+  let [isFullScreen, setIsFullScreen] = React.useState<boolean>(false);
+  
   const lat = Number(data?.getPost.location.lat || 0);
   const lon = Number(data?.getPost.location.lon || 0);
-  const items:Array<ReactImageGalleryItem> = [];
+  // isFUllscreen - state
+  const RenderPanorama = (item:ReactImageGalleryItem) => 
+    <Panoram url={item.original} />;
+  
+  const pushToBookList = (el: Schedule) => {
+    setBookList((prev) => [...prev, el]);
+  }
 
-  const RenderPanorama = (item:ReactImageGalleryItem) =>
-    <Panoram url={item.original} height={isFullScreen ? '100vh' : '250px'} />;
-
-  React.useEffect(() => {
-    if (data) {
-      data.getPost.pictures.map((el:string) => 
-        items.push({ 
-          thumbnail: el, 
-          original: el,
-        })
-      );
-        
-      data.getPost.panoramas.map((el:string) => 
-        items.push({ 
-          thumbnail: el, 
-          original: el, 
-          renderItem: RenderPanorama, 
-        })
-      );
-    }
-  });
+  React.useEffect(() => console.log(isFullScreen))
 
   if (error) 
     return <h1>No post found</h1>
@@ -70,21 +82,22 @@ const Post = (props:any) => {
         <article>{data.getPost.description}</article>
         <p>{data.getPost.location.locationName}</p>
         
-        
-        { 
-          (data.getPost.pictures || data.getPost.panoramas) && 
-          (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0) && 
-          <ImageGallery 
-            items={items}
-            onScreenChange={() => { isFullScreen = !isFullScreen }} 
-          />
-        }
-
         <PostContext.Provider 
           value={{
             postId: props.match.params.placeId,
-            schedule: data.getPost.schedule,
+            schedule: bookList,
+            pushToBookList,
+            isFullScreen,
           }}>
+          { 
+            (data.getPost.pictures || data.getPost.panoramas) && 
+            (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0) &&
+            <ImageGallery 
+              items={items}
+              onScreenChange={() => { setIsFullScreen(prev => !prev) }} 
+            />
+          }
+        
           <Book />
         </PostContext.Provider>
       </div>
@@ -100,7 +113,7 @@ const Post = (props:any) => {
   )
 }
 
-const GET_POST = gql`
+export const GET_POST = gql`
   query getPost($postId: ID!) {
     getPost(postId: $postId) {
       userId

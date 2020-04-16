@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PostContext } from '../../pages/Post';
 import { Schedule } from '../Posts';
+import { dateToString } from '../../utils/handleDate';
 
 const BookTimeList = () => {
   const { schedule } = React.useContext(PostContext);
@@ -11,8 +12,8 @@ const BookTimeList = () => {
           schedule &&
           schedule.map((el: Schedule, index: number) =>
             <li key={index}>
-              <span>{new Date(el.fromDate).toISOString()}</span>
-              <span>{new Date(el.toDate).toISOString()}</span>
+              <span>{dateToString(new Date(el.fromDate))} </span>-
+              <span> {dateToString(new Date(el.toDate))}</span>
             </li>
           ) 
         }

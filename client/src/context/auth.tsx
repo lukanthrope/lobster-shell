@@ -2,15 +2,24 @@ import * as React from 'react';
 import * as jwtDecode from 'jwt-decode';
 
 const codedToken:string = localStorage.getItem('jwt');
+
+interface User {
+  id: string;
+  email: string;
+  username: string;
+  iat: number;
+  exp: number;
+}
+
 type State = {
-  user: any
+  user: User;
 }
 const initialState:State = {
   user: null
 }
 
 if (codedToken) {
-  const decodedToken:any = jwtDecode(codedToken);
+  const decodedToken: User = jwtDecode(codedToken);
 
   if (decodedToken.exp * 1000 < Date.now()) {
     localStorage.removeItem('jwt');
@@ -42,7 +51,7 @@ const AuthReducer = (state:State, action:any) => {
   }
 };
 
-const AuthProvider:React.FC = (props:any) => {
+const AuthProvider:React.FC = props => {
   const [state, dispatch] = React.useReducer(AuthReducer, initialState);
 
   const login = (userData:any) => {

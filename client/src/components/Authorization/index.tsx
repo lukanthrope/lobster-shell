@@ -14,7 +14,7 @@ const Authorization = ({ haveAccount }: AuthorizationProps) => {
 
   return (
     <div
-      className="Parent pos(f) w(100%) h(100%) bgc-op(black)"
+      className="Parent top(0) pos(f) w(100%) h(100%) bgc-op(black)"
       onClick={(e:any) => {
         if (e.target.className.includes('Parent')) 
           handleShowModal(); 
