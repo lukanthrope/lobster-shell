@@ -170,6 +170,7 @@ const REGISTER_USER = gql`
         confirmPassword: $confirmPassword
       }
     ) {
+      id
       username
       token
     }

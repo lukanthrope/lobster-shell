@@ -7,9 +7,8 @@ import PostPreview from './PostPreview';
 import Spinner from '../../components/Spinner';
 
 export interface Location {
-  locationName: string;
-  lon?: string;
-  lat?: string;
+  coordinates: number[];
+  type: string
 }
 
 export interface Schedule {
@@ -26,6 +25,7 @@ export interface Post {
   panoramas?: Array<string>;
   description?: string;
   isTaken?: boolean;
+  locationName: string;
   location: Location;
   createdAt?: string;
 };
@@ -37,28 +37,37 @@ export interface PostData {
 interface Variables {
   offset: number;
   limit: number;
-  request?: string; 
+  request?: string;
+  userId?: string; 
+}
+
+interface Props {
+  userId?: string;
 }
 
 export const LIMIT_GET_POSTS:number = 12;
 
-const Posts = () => {
+const Posts = ({ userId }: Props) => {
   const [searchParam, setSearchParam] = React.useState<string>('');
   const { loading, error, data, fetchMore } = useQuery<PostData, Variables>(FETCH_POSTS, {
     variables: {
       offset: 0,
       limit: LIMIT_GET_POSTS,
       request: searchParam,
+      userId,
     },
     fetchPolicy: "cache-and-network",
   });
 
   return (
     <div className="t-al(center) m-t(30px) m-b(100px)">
-      <Search 
-        find={ fetchMore } 
-        setSearchParam={ setSearchParam }
-        />
+      {
+        !userId &&
+        <Search 
+          find={ fetchMore } 
+          setSearchParam={ setSearchParam }
+          />
+      }
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
           {
@@ -71,7 +80,7 @@ const Posts = () => {
                 title={el.title}
                 picture={el.pictures[0]}
                 description={el.description}
-                location={el.location.locationName}
+                location={el.locationName}
                 key={el.id} 
                 />
             )
@@ -81,7 +90,7 @@ const Posts = () => {
           }
         </div>
 
-        { data?.getPosts.length % 12 === 0 &&
+        { data?.getPosts.length % 12 === 0 && data?.getPosts.length !== 0 &&
           <button 
             className="m-t(20px)
                       m-b(30px) 
@@ -117,15 +126,12 @@ const Posts = () => {
 }
 
 const FETCH_POSTS = gql`
-  query getPosts($limit: Int!, $offset: Int, $request: String) {
-    getPosts(limit: $limit, offset: $offset, request: $request) {
+  query getPosts($limit: Int!, $offset: Int, $request: String, $userId: ID) {
+    getPosts(limit: $limit, offset: $offset, request: $request, userId: $userId) {
       id
       title
       description
-      
-      location {
-        locationName
-      }
+      locationName
       pictures
     }
   }

@@ -33,7 +33,7 @@ const Header = ({ history }: RouteComponentProps) => {
               {
                 user 
                   ? <>
-                    <a>{user.username}</a>
+                    <Link to="/account" className="text-dec(none) p(left:15px) pointer col-h(white)">{user.username}</Link>
                     <Link to="/host" className="text-dec(none) p(left:15px) pointer col-h(white)">host</Link>
                     <a className="p(left:15px) pointer col-h(white)" onClick={() => Logout()}>logout</a>
                     </>

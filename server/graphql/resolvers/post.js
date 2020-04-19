@@ -1,6 +1,5 @@
 const { createWriteStream } = require("fs");
 const path = require('path');
-const moment = require('moment');
 const Post = require('../../models/Post');
 const checkAuth = require('../../utils/check-auth');
 
@@ -20,8 +19,6 @@ module.exports = {
       const anon = checkAuth(ctx);
       let pics = [];
       let pans = [];
-
-      console.log(locationName + '\n' + lon + '\n' + lat);
 
       pictures.map(async (el) => {
         pics.push(
@@ -57,7 +54,7 @@ module.exports = {
       });
 
       const panoramasForDB = await Promise.all(pans);
-
+      
       const newPost = new Post({
         title,
         description,
@@ -66,15 +63,19 @@ module.exports = {
         panoramas: panoramasForDB,
         createdAt: new Date().toISOString(),
         userId: anon.id,
+        locationName,
         location: {
-          locationName,
-          lon,
-          lat,
+          type: "Point",
+          coordinates: [lon, lat]
         },
       });
 
       await newPost.save();
       
+      return true;
+    },
+    async deletePost(_, { postId }) {
+      await Post.deleteOne({ _id: postId });
       return true;
     },
     async bookPost(_, { postId, start, end }) {
@@ -109,7 +110,8 @@ module.exports = {
     }
   },
   Query: {
-    async getPosts(_, { limit, offset, request }) {
+    async getPosts(_, { limit, offset, request, userId, lat, lon }) {
+      
       try {
         if (request && request.trim() !== '') {
           const req = request.split(/[.,\/ \t\n\v\f\r\s -]/).filter(el => el.trim() !== '');
@@ -118,7 +120,7 @@ module.exports = {
           const res = await Post
             .find({ 
               $or: [ { 
-                "location.locationName": { $regex: re } 
+                "locationName": { $regex: re } 
                 }, 
                 { 
                   description: { 
@@ -136,9 +138,32 @@ module.exports = {
             .skip(offset);
 
           return res;
+        } else if (userId) {
+          const res = await Post
+            .find({ userId })
+            .sort({ createdAt: -1 })
+            .limit(limit)
+            .skip(offset);
+          return res;
+        } else if (lat && lon) {
+          const res = await Post.aggregate([
+            {
+              "$geoNear": {
+                "near": {
+                  "type": "Point",
+                  "coordinates": [lon, lat],
+                },
+                "distanceField": "dist.calculated",
+                "spherical": true,
+              },
+              
+            },
+            
+          ]);
+          return res;
         } else {
           const res = await Post
-            .find({ location: { $ne: null } })
+            .find()
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(offset);

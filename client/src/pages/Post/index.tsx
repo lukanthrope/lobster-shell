@@ -1,6 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery';
 
 import { Post as PostResponse, Schedule } from '../../components/Posts';
@@ -8,6 +8,8 @@ import MapDiv from '../../components/MapDiv';
 import Panoram from '../../components/Panoram';
 import Spinner from '../../components/Spinner';
 import Book from '../../components/Book';
+import { AuthContext } from '../../context/auth';
+import Check from '../../components/Check';
 
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./styles.css";
@@ -24,6 +26,7 @@ export const PostContext = React.createContext(null);
 
 const Post = (props:any) => {
   const [items, setItems] = React.useState<Array<ReactImageGalleryItem>>([]);
+  const { user } = React.useContext(AuthContext);
   const { data, loading, error } = useQuery<GetPost, Vars>(GET_POST, {
     variables: {
       postId: props.match.params.placeId,
@@ -53,12 +56,18 @@ const Post = (props:any) => {
       setBookList(data.getPost.schedule);
     }
   });
+  const [showModal, setShowModal] = React.useState<boolean>(false);
+  const [deletePost] = useMutation<boolean, Vars>(DELETE_POST, {
+    variables: {
+      postId: props.match.params.placeId,
+    }
+  })
   const [bookList, setBookList] = React.useState<Schedule[]>(null);
-  let [isFullScreen, setIsFullScreen] = React.useState<boolean>(false);
+  const [isFullScreen, setIsFullScreen] = React.useState<boolean>(false);
   
-  const lat = Number(data?.getPost.location.lat || 0);
-  const lon = Number(data?.getPost.location.lon || 0);
-  // isFUllscreen - state
+  const lat = data?.getPost.location.coordinates[0] || 0;
+  const lon = data?.getPost.location.coordinates[1] || 0;
+  
   const RenderPanorama = (item:ReactImageGalleryItem) => 
     <Panoram url={item.original} />;
   
@@ -66,7 +75,15 @@ const Post = (props:any) => {
     setBookList((prev) => [...prev, el]);
   }
 
-  React.useEffect(() => console.log(isFullScreen))
+  const modalCallack = () => {
+    deletePost();
+    props.history.push('/');
+  }
+
+  const hideModal = () => {
+    setShowModal(false);
+  }
+
 
   if (error) 
     return <h1>No post found</h1>
@@ -80,7 +97,7 @@ const Post = (props:any) => {
       <div className="m-t(10%) w(30vw) m-l(10%)">
         <h1>{data.getPost.title}</h1>
         <article>{data.getPost.description}</article>
-        <p>{data.getPost.location.locationName}</p>
+        <p>{data.getPost.locationName}</p>
         
         <PostContext.Provider 
           value={{
@@ -94,18 +111,31 @@ const Post = (props:any) => {
             (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0) &&
             <ImageGallery 
               items={items}
-              onScreenChange={() => { setIsFullScreen(prev => !prev) }} 
+              onScreenChange={() => { setIsFullScreen(prev => !prev) }}
             />
           }
         
           <Book />
         </PostContext.Provider>
+        {
+          
+          user?.id === data.getPost.userId &&
+          <button onClick={() => setShowModal(true)}>delete</button>
+        }
       </div>
       {lat && lon &&
         <MapDiv 
           lat={lat} 
           lon={lon} 
-          address={data.getPost.location.locationName}  
+          address={data.getPost.locationName}  
+          />
+      }
+      {
+        showModal && 
+        <Check
+          func={modalCallack} 
+          hide={hideModal} 
+          question="Delete post?"
           />
       }
     </div>
@@ -123,15 +153,20 @@ export const GET_POST = gql`
         fromDate
         toDate
       }
+      locationName
       location {
-        locationName
-        lon
-        lat
+        coordinates
       }
       pictures
       panoramas
       createdAt
     }
+  }
+`;
+
+const DELETE_POST = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
   }
 `;
 

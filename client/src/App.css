@@ -40,7 +40,7 @@ body {
 }
 
 .bgc-hov\(gray\):hover {
-  background-color: rgb(204, 189, 189);
+  background-color: rgb(219, 213, 213);
 }
 
 .bgc\(l-pink\) {
@@ -84,8 +84,16 @@ body {
   width: 30%;
 }
 
+.w\(250px\) {
+  width: 250px;
+}
+
 .w\(120px\) {
   width: 120px;
+}
+
+.w\(50px\) {
+  width: 50px;
 }
 
 .w\(30px\) {
@@ -129,16 +137,20 @@ body {
   height: 75%;
 }
 
+.h\(100px\) {
+  height: 100px;
+}
+
+.h\(70px\) {
+  height: 70px;
+}
+
 .h\(35px\) {
   height: 35px;
 }
 
 .h\(10px\) {
   height: 20px;
-}
-
-.h\(70px\) {
-  height: 70px;
 }
 
 .d\(in-flex\) {
@@ -220,6 +232,10 @@ body {
 
 .f\(r\) {
   float: right;
+}
+
+.p\(20px\) {
+  padding: 20px;
 }
 
 .p\(left\:15px\) {

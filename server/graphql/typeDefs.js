@@ -25,9 +25,13 @@ module.exports = gql`
   }
 
   type Location {
-    locationName: String!
-    lat: String
-    lon: String
+    type: String
+    coordinates: [Float]
+  }
+
+  type dist {
+    calculated: Float
+    location: Location
   }
 
   type Post @cacheControl(maxAge: 240) {
@@ -39,14 +43,16 @@ module.exports = gql`
     schedule: [FromTo]
     pictures: [String]
     panoramas: [String]
-    location: Location!
+    locationName: String!
+    location: Location
+    dist: dist
   }
 
   input PostInput {
     title: String!
     locationName: String!
-    lon: String
-    lat: String
+    lon: Float
+    lat: Float
     description: String
     pictures: [Upload]
     panoramas: [Upload]
@@ -60,7 +66,7 @@ module.exports = gql`
   }
 
   type Query {
-    getPosts(limit: Int!, offset: Int, request: String): [Post] @cacheControl(maxAge: 30)
+    getPosts(limit: Int!, offset: Int, request: String, userId: ID, lat: Float, lon: Float): [Post] @cacheControl(maxAge: 30)
     getPost(postId: ID!): Post!
   }
 

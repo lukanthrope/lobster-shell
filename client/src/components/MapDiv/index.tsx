@@ -23,7 +23,7 @@ const myIcon = L.icon({
 const MapDiv = ({ lat, lon, isPreview = true, address }: Coordinates) => 
   <div className={`${isPreview ? 'map': 'map-preview'}`}  >
     <Map
-      center={[lat, lon]} 
+      center={[lon, lat]} 
       zoom={15} 
       maxZoom={19} 
       style={{'height': 'calc(100vh - 70px)'}}
@@ -32,7 +32,7 @@ const MapDiv = ({ lat, lon, isPreview = true, address }: Coordinates) =>
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
-      <Marker style={{'zIndex': '3'}} position={[lat, lon]} icon={myIcon}>
+      <Marker style={{'zIndex': '3'}} position={[lon, lat]} icon={myIcon}>
         <Popup>{address}</Popup>
       </Marker>
     </Map>

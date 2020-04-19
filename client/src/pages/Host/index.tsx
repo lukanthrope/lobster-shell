@@ -95,8 +95,8 @@ const Host = (props: Props) => {
                 title: values.title,
                 description: values.description,
                 locationName: values.location,
-                lon: coordinates.lon,
-                lat: coordinates.lat,
+                lon: Number(coordinates.lon),
+                lat: Number(coordinates.lat),
                 pictures: imageFiles, 
                 panoramas: panoramFiles,
               }
@@ -206,8 +206,8 @@ const ADD_POST = gql`
     $pictures: [Upload]
     $panoramas: [Upload]
     $locationName: String!
-    $lon: String
-    $lat: String
+    $lon: Float
+    $lat: Float
   ) {
     addPost(
       postInput: {

@@ -11,11 +11,13 @@ const postSchema = new Schema({
   }],
   pictures: [{ type: String }],
   panoramas: [{ type: String }],
+  locationName: String,
   location: {
-    locationName: String,
-    lon: String,
-    lat: String,
+    type: { type: String, default: "Point" },
+    coordinates: [Number],
   },
 });
+
+postSchema.index({ "location": "2dsphere" });
 
 module.exports = model('Post', postSchema);

@@ -23,6 +23,7 @@ const Book = () => {
   const { postId, pushToBookList } = React.useContext(PostContext);
   const [stateDate, setStateDate] = React.useState<Date>(new Date());
   const [stateDate2, setStateDate2] = React.useState<Date>(new Date());
+  // TODO: check date
   const [ bookPost, { data, loading, error }] = useMutation<Check, Vars>(BOOK_POST);
   const { user } = React.useContext(AuthContext);
 
