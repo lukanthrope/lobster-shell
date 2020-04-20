@@ -40,7 +40,6 @@ const Search = ({ find, setSearchParam }: Props) => {
           request: searchVal,
         },
         updateQuery: (_:any, { fetchMoreResult }:FetchMore) => {
-          console.log(fetchMoreResult)
           if (!fetchMoreResult) 
             return null;
           return Object.assign({}, { getPosts: fetchMoreResult.getPosts});

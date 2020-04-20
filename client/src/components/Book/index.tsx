@@ -26,11 +26,6 @@ const Book = () => {
   // TODO: check date
   const [ bookPost, { data, loading, error }] = useMutation<Check, Vars>(BOOK_POST);
   const { user } = React.useContext(AuthContext);
-
-  React.useEffect(() => {
-    console.log(moment(stateDate.getTime()).format('MM/DD/YYYY HH:mm'));
-    console.log(user)
-  });
   
   const onTimeChange = (date:Date) => setStateDate(date);
   const onTimeChange2 = (date:Date) => setStateDate2(date);

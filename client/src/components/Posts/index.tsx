@@ -39,6 +39,8 @@ interface Variables {
   limit: number;
   request?: string;
   userId?: string; 
+  lon?: number;
+  lat?: number;
 }
 
 interface Props {
@@ -49,15 +51,27 @@ export const LIMIT_GET_POSTS:number = 12;
 
 const Posts = ({ userId }: Props) => {
   const [searchParam, setSearchParam] = React.useState<string>('');
+  const [coordinates, setCoordinates] = React.useState([null, null]);
   const { loading, error, data, fetchMore } = useQuery<PostData, Variables>(FETCH_POSTS, {
     variables: {
       offset: 0,
       limit: LIMIT_GET_POSTS,
       request: searchParam,
       userId,
+      lon: coordinates[0],
+      lat: coordinates[1],
     },
     fetchPolicy: "cache-and-network",
   });
+
+  React.useEffect(() => {
+    if (!userId) {
+      navigator.geolocation.getCurrentPosition((pos: Position) => {
+        const res = pos.coords;
+        setCoordinates([res.longitude, res.latitude]);
+      });
+    }
+  }, []);
 
   return (
     <div className="t-al(center) m-t(30px) m-b(100px)">
@@ -109,6 +123,8 @@ const Posts = ({ userId }: Props) => {
                 variables: {
                   offset: data.getPosts.length,
                   request: searchParam,
+                  lon: null,
+                  lat: null,
                 },
                 updateQuery: (prev: PostData, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev;
