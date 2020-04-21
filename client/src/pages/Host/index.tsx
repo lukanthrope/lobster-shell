@@ -10,6 +10,7 @@ import { AuthContext } from '../../context/auth';
 import { Coordinates, isValidAdress } from '../../utils/maps';
 import ImageUpload from '../../components/ImageUpload';
 import Spinner from '../../components/Spinner';
+import { resolveFieldValueOrError } from 'graphql/execution/execute';
 
 interface Props extends RouteComponentProps {
   history: History<LocationState>;
@@ -107,16 +108,18 @@ const Host = (props: Props) => {
               .required('Required'),
             location: Yup.string()
               .required('Required')
-              .test('is-valid-url', 'invalid adress', (value: string):boolean => {
-                isValidAdress(value)
+              .test('is-valid-url', 'invalid adress', (value: string) => 
+                new Promise(resolve => {
+                  isValidAdress(value)
                   .then((res:Coordinates):void => {
                     setCoordinates(res);
+                    resolve(true);
                   })
                   .catch(():void => {
                     setCoordinates(null);
+                    resolve(false);
                   });
-                  return true;
-              }),
+                })),
           })}
           >
             {({ isSubmitting }) => (

@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import Search from '../../components/Search';
 import PostPreview from './PostPreview';
 import Spinner from '../../components/Spinner';
+import { convertDistance } from '../../utils/handleDistance';
 
 export interface Location {
   coordinates: number[];
@@ -15,6 +16,10 @@ export interface Schedule {
   fromDate: Date;
   toDate: Date;
 }; 
+
+export interface Dist {
+  calculated: number;
+}
 
 export interface Post {
   id: string;
@@ -28,6 +33,7 @@ export interface Post {
   locationName: string;
   location: Location;
   createdAt?: string;
+  dist?: Dist;
 };
 
 export interface PostData {
@@ -45,13 +51,13 @@ interface Variables {
 
 interface Props {
   userId?: string;
+  coordinates?: number[]; 
 }
 
 export const LIMIT_GET_POSTS:number = 12;
 
-const Posts = ({ userId }: Props) => {
+const Posts = ({ userId, coordinates = [null, null] }: Props) => {
   const [searchParam, setSearchParam] = React.useState<string>('');
-  const [coordinates, setCoordinates] = React.useState([null, null]);
   const { loading, error, data, fetchMore } = useQuery<PostData, Variables>(FETCH_POSTS, {
     variables: {
       offset: 0,
@@ -64,14 +70,7 @@ const Posts = ({ userId }: Props) => {
     fetchPolicy: "cache-and-network",
   });
 
-  React.useEffect(() => {
-    if (!userId) {
-      navigator.geolocation.getCurrentPosition((pos: Position) => {
-        const res = pos.coords;
-        setCoordinates([res.longitude, res.latitude]);
-      });
-    }
-  }, []);
+  React.useEffect(()=> console.log(error));
 
   return (
     <div className="t-al(center) m-t(30px) m-b(100px)">
@@ -81,6 +80,10 @@ const Posts = ({ userId }: Props) => {
           find={ fetchMore } 
           setSearchParam={ setSearchParam }
           />
+      }
+
+      {
+        coordinates && <h1>{coordinates[0]}</h1>
       }
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
@@ -93,9 +96,9 @@ const Posts = ({ userId }: Props) => {
                 id={el.id}
                 title={el.title}
                 picture={el.pictures[0]}
-                description={el.description}
                 location={el.locationName}
                 key={el.id} 
+                distance={convertDistance(el?.dist?.calculated)}
                 />
             )
           }
@@ -142,13 +145,16 @@ const Posts = ({ userId }: Props) => {
 }
 
 const FETCH_POSTS = gql`
-  query getPosts($limit: Int!, $offset: Int, $request: String, $userId: ID) {
-    getPosts(limit: $limit, offset: $offset, request: $request, userId: $userId) {
+  query getPosts($limit: Int!, $offset: Int, $request: String, $userId: ID, $lon: Float, $lat: Float),  {
+    getPosts(limit: $limit, offset: $offset, request: $request, userId: $userId, lon: $lon, lat: $lat) {
       id
       title
       description
       locationName
       pictures
+      dist {
+        calculated
+      }
     }
   }
 `;

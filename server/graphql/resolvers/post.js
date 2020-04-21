@@ -110,7 +110,7 @@ module.exports = {
     }
   },
   Query: {
-    async getPosts(_, { limit, offset, request, userId, lat, lon }) {
+    async getPosts(_, { limit, offset = 0, request, userId, lat, lon }) {
       
       try {
         if (request && request.trim() !== '') {
@@ -146,20 +146,23 @@ module.exports = {
             .skip(offset);
           return res;
         } else if (lat && lon) {
-          const res = await Post.aggregate([
+          let res = await Post.aggregate([
             {
               "$geoNear": {
                 "near": {
                   "type": "Point",
                   "coordinates": [lon, lat],
                 },
-                "distanceField": "dist.calculated",
+                "distanceField": "dist.calculated", 
                 "spherical": true,
               },
               
             },
-            
+            { $sort: { "dist.calcalated": -1 } },
+            { $limit: limit },
+            { $skip: offset },
           ]);
+          res.map(el => el.id = el._id || el.id);
           return res;
         } else {
           const res = await Post
@@ -167,6 +170,7 @@ module.exports = {
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(offset);
+          console.log(res);
           return res;
         }
       } catch(err) {

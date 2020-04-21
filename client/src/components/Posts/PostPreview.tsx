@@ -7,12 +7,18 @@ interface PostProps {
   id: string;
   title: string;
   picture?: string;
-  description?: string;
   isTaken?: boolean;
   location: string;
+  distance?: string;
 };
 
-const PostPreview = ({ title, description, picture, isTaken, location, id }: PostProps) => 
+const PostPreview = ({ 
+  title, 
+  picture, 
+  isTaken, 
+  distance, 
+  location, 
+  id }: PostProps) => 
   <div className="f-basis(33%)">
     
       <Link className="text-dec(none)" to={id}>
@@ -23,9 +29,9 @@ const PostPreview = ({ title, description, picture, isTaken, location, id }: Pos
         <i className="material-icons" style={{'color': 'red'}}>
             room    
         </i>
-        <h4>{location}</h4>
+        <p>{location} </p>
+        { distance && <p> ~{distance} from you</p> }
       </span>
-      <p>{description || ''}</p>
     
   </div>
 

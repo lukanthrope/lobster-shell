@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 // @ts-ignore
 import DateTimePicker from 'react-datetime-picker';
-import * as moment from 'moment';
 
 import { PostContext } from '../../pages/Post';
 import { AuthContext } from '../../context/auth';
