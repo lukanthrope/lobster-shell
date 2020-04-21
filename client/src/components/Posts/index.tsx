@@ -6,6 +6,7 @@ import Search from '../../components/Search';
 import PostPreview from './PostPreview';
 import Spinner from '../../components/Spinner';
 import { convertDistance } from '../../utils/handleDistance';
+import { isTakenNow } from '../../utils/handleDate';
 
 export interface Location {
   coordinates: number[];
@@ -98,6 +99,7 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
                 picture={el.pictures[0]}
                 location={el.locationName}
                 key={el.id} 
+                isTaken={isTakenNow(el.schedule)}
                 distance={convertDistance(el?.dist?.calculated)}
                 />
             )
@@ -151,6 +153,10 @@ const FETCH_POSTS = gql`
       title
       description
       locationName
+      schedule {
+        fromDate
+        toDate
+      }
       pictures
       dist {
         calculated

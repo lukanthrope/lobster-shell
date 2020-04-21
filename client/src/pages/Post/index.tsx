@@ -10,6 +10,7 @@ import Spinner from '../../components/Spinner';
 import Book from '../../components/Book';
 import { AuthContext } from '../../context/auth';
 import Check from '../../components/Check';
+import { isTakenNowText } from '../../utils/handleDate';
 
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./styles.css";
@@ -85,6 +86,8 @@ const Post = (props:any) => {
   }
 
 
+
+
   if (error) 
     return <h1>No post found</h1>
 
@@ -95,7 +98,9 @@ const Post = (props:any) => {
 
     <div className="w(100%)">
       <div className="m-t(10%) w(30vw) m-l(10%)">
+        <p>{data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)} <button onClick={() =>isTakenNowText(data.getPost?.schedule)}>check if free</button></p>
         <h1>{data.getPost.title}</h1>
+        
         <article>{data.getPost.description}</article>
         <p>{data.getPost.locationName}</p>
         

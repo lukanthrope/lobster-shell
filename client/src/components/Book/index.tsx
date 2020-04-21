@@ -42,11 +42,11 @@ const Book = () => {
         end: stateDate2.getTime(),
       } 
     });
-    if (data)
-      pushToBookList({ 
-        fromDate: stateDate, 
-        toDate: stateDate2 
-      });
+
+    pushToBookList({ 
+      fromDate: stateDate, 
+      toDate: stateDate2 
+    });
     if (bookErr)
       setBookErr(false);
   }

@@ -20,7 +20,7 @@ const PostPreview = ({
   location, 
   id }: PostProps) => 
   <div className="f-basis(33%)">
-    
+      { isTaken && <p>(in use now)</p> }
       <Link className="text-dec(none)" to={id}>
         <img className="m-w(300px)" src={picture || defaultImage} />  
         <h3>{title}</h3>    
@@ -30,6 +30,7 @@ const PostPreview = ({
             room    
         </i>
         <p>{location} </p>
+        
         { distance && <p> ~{distance} from you</p> }
       </span>
     
