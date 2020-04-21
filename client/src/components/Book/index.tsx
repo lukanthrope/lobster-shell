@@ -22,14 +22,19 @@ const Book = () => {
   const { postId, pushToBookList } = React.useContext(PostContext);
   const [stateDate, setStateDate] = React.useState<Date>(new Date());
   const [stateDate2, setStateDate2] = React.useState<Date>(new Date());
-  // TODO: check date
-  const [ bookPost, { data, loading, error }] = useMutation<Check, Vars>(BOOK_POST);
+  const [bookErr, setBookErr] = React.useState<boolean>(false);
+
+  const [ bookPost, { data }] = useMutation<Check, Vars>(BOOK_POST);
   const { user } = React.useContext(AuthContext);
   
   const onTimeChange = (date:Date) => setStateDate(date);
   const onTimeChange2 = (date:Date) => setStateDate2(date);
 
   const Submit = () => {
+    if (stateDate2 <= stateDate) {
+      setBookErr(true);
+      return;
+    }
     bookPost({ 
       variables: { 
         postId, 
@@ -37,11 +42,13 @@ const Book = () => {
         end: stateDate2.getTime(),
       } 
     });
-
-    pushToBookList({ 
-      fromDate: stateDate, 
-      toDate: stateDate2 
-    });
+    if (data)
+      pushToBookList({ 
+        fromDate: stateDate, 
+        toDate: stateDate2 
+      });
+    if (bookErr)
+      setBookErr(false);
   }
 
   return (
@@ -49,10 +56,13 @@ const Book = () => {
       {
         user ?
           <>
+          <div className="d(flex)">
+            <p>from</p>
             <DateTimePicker
               onChange={onTimeChange}
               value={stateDate}
               />
+            <p>to</p>
             <DateTimePicker
               onChange={onTimeChange2}
               value={stateDate2}
@@ -60,12 +70,17 @@ const Book = () => {
             <button onClick={Submit}>
                 Rent
             </button>
+          </div>
+          {
+            bookErr && <p>Set correct range of dates</p>
+          }
+          {
+            !bookErr && data && (data.bookPost ? <p>Successfully booked!</p> : <p>Theese dates are already taken</p>)
+          }
           </> :
           <h1>Log in to book this place</h1>
       }
-      {
-        data && (data.bookPost ? <p>Successfully booked!</p> : <p>Theese dates are already taken</p>)
-      }
+      
 
       <BookTimeList />
     </div>
