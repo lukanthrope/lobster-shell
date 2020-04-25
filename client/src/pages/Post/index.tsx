@@ -15,6 +15,8 @@ import { isTakenNowText } from '../../utils/handleDate';
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./styles.css";
 
+const defaultImage = require('../../images/no-img.png');
+
 interface Vars {
   postId: string;
 }
@@ -95,7 +97,7 @@ const Post = (props:any) => {
     return <Spinner />
 
   return (
-
+/////////////////////////////
     <div className="w(100%)">
       <div className="m-t(10%) w(30vw) m-l(10%)">
         <p>{data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)} <button onClick={() =>isTakenNowText(data.getPost?.schedule)}>check if free</button></p>
@@ -112,12 +114,13 @@ const Post = (props:any) => {
             isFullScreen,
           }}>
           { 
-            (data.getPost.pictures || data.getPost.panoramas) && 
-            (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0) &&
+            ((data.getPost.pictures || data.getPost.panoramas) && 
+            (data.getPost.pictures.length !== 0 || data.getPost.panoramas.length !== 0)) ?
             <ImageGallery 
               items={items}
               onScreenChange={() => { setIsFullScreen(prev => !prev) }}
-            />
+            /> :
+            <img src={defaultImage} />
           }
         
           <Book />

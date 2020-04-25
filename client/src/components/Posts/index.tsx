@@ -71,8 +71,6 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
     fetchPolicy: "cache-and-network",
   });
 
-  React.useEffect(()=> console.log(error));
-
   return (
     <div className="t-al(center) m-t(30px) m-b(100px)">
       {

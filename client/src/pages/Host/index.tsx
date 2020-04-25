@@ -10,7 +10,6 @@ import { AuthContext } from '../../context/auth';
 import { Coordinates, isValidAdress } from '../../utils/maps';
 import ImageUpload from '../../components/ImageUpload';
 import Spinner from '../../components/Spinner';
-import { resolveFieldValueOrError } from 'graphql/execution/execute';
 
 interface Props extends RouteComponentProps {
   history: History<LocationState>;

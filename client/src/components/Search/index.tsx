@@ -1,8 +1,9 @@
 import * as React from 'react';
-import axios from 'axios';
-import { debounce } from 'lodash';
 
+
+import Authocomplete from '../Authocomplete';
 import { LIMIT_GET_POSTS, PostData } from '../Posts';
+import useAuthocompleteAPI from '../../hooks/useAuthocompleteAPI';
 
 interface Props {
   find: Function;
@@ -13,15 +14,10 @@ interface FetchMore {
   fetchMoreResult: PostData;
 }
 
-export const SUGGESTION_NUMBER:number = 5;
 
 const Search = ({ find, setSearchParam }: Props) => {
   const [searchVal, setSearchVal] = React.useState<string>('');
-  const [suggestions, setSuggestions] = React.useState(null);
-  const delayedQuery = React.useCallback(debounce(async (q: string) => {
-    const res = await axios.get(`http://photon.komoot.de/api/?q=${q}&limit=${SUGGESTION_NUMBER}`);
-    setSuggestions(res);
-  }, 500), []);
+  const { delayedQuery, suggestions } = useAuthocompleteAPI();
 
   const OnChange = async (e: React.ChangeEvent<HTMLInputElement>) => { 
       setSearchVal(e.target.value);
@@ -33,6 +29,7 @@ const Search = ({ find, setSearchParam }: Props) => {
     e.preventDefault();
     if (searchVal.trim() !== '') {
       setSearchParam(searchVal);
+      setSearchVal('');
       find({ 
         variables: { 
           offset: 0, 
@@ -57,16 +54,11 @@ const Search = ({ find, setSearchParam }: Props) => {
         value={searchVal} 
         onChange={(e) => OnChange(e)} 
         />
-      <datalist id="search">
-        { 
-          suggestions?.data.features.map((el:any, index:number) => 
-            <option 
-              value={`${el.properties.name} ${el.properties?.street ? el.properties?.street : ''}`} 
-              key={index} 
-              />
-            )
-        }
-      </datalist>
+      <Authocomplete 
+        id="search"
+        suggestions={suggestions?.data.features}
+        />
+
       <button 
         type="submit" 
         className="
