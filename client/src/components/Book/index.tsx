@@ -57,12 +57,11 @@ const Book = () => {
         user ?
           <>
           <div className="d(flex)">
-            <p>from</p>
             <DateTimePicker
               onChange={onTimeChange}
               value={stateDate}
               />
-            <p>to</p>
+            <p>-</p>
             <DateTimePicker
               onChange={onTimeChange2}
               value={stateDate2}
@@ -81,7 +80,6 @@ const Book = () => {
           <h1>Log in to book this place</h1>
       }
       
-
       <BookTimeList />
     </div>
   )

@@ -158,8 +158,8 @@ module.exports = {
               },
               
             },
-            { $sort: { "dist.calcalated": -1 } },
-            { $limit: limit },
+            { $sort: { "dist.calculated": 1 } },
+            { $limit: limit + offset },
             { $skip: offset },
           ]);
           res.map(el => el.id = el._id || el.id);
@@ -170,7 +170,7 @@ module.exports = {
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(offset);
-          console.log(res);
+          
           return res;
         }
       } catch(err) {

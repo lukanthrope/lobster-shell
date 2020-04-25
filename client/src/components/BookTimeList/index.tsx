@@ -5,8 +5,14 @@ import { dateToString } from '../../utils/handleDate';
 
 const BookTimeList = () => {
   const { schedule } = React.useContext(PostContext);
+  const [showSchedule, setShowSchedule] = React.useState<boolean>(false);
+
   return (
     <React.Fragment>
+      <button onClick={() => setShowSchedule(prev => !prev)}>
+        {showSchedule ? 'hide schedule' : 'show schedule'}
+      </button>
+      { showSchedule &&
       <ul>
         {
           schedule &&
@@ -18,6 +24,7 @@ const BookTimeList = () => {
           ) 
         }
       </ul>
+      }
     </React.Fragment>
   )
 }

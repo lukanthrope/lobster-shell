@@ -2,7 +2,7 @@ import * as React from 'react';
 import { debounce } from 'lodash';
 import axios from 'axios';
 
-export const SUGGESTION_NUMBER:number = 5;
+const SUGGESTION_NUMBER:number = 5;
 
 type HookResult = {
   suggestions: any,

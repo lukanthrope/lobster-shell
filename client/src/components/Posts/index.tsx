@@ -82,7 +82,15 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
       }
 
       {
-        coordinates && <h1>{coordinates[0]}</h1>
+        !userId && !loading && data?.getPosts.length === 0 ? 
+          <h1>No posts found</h1> : 
+          !userId && <h1>The nearest places to you</h1>
+      }
+
+      {
+        userId && !loading && data?.getPosts.length === 0 ?
+          <h1>You haven't shared places yet</h1> :
+          userId && <h1>Your posts</h1>
       }
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
@@ -94,7 +102,7 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
               <PostPreview
                 id={el.id}
                 title={el.title}
-                picture={el.pictures[0]}
+                picture={el.pictures[0] || el.panoramas[0]}
                 location={el.locationName}
                 key={el.id} 
                 isTaken={isTakenNow(el.schedule)}
@@ -102,9 +110,7 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
                 />
             )
           }
-          {
-            !loading && data?.getPosts.length === 0 && <h2>No posts found</h2>
-          }
+          
         </div>
 
         { data?.getPosts.length % 12 === 0 && data?.getPosts.length !== 0 &&
@@ -126,8 +132,6 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
                 variables: {
                   offset: data.getPosts.length,
                   request: searchParam,
-                  lon: null,
-                  lat: null,
                 },
                 updateQuery: (prev: PostData, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev;
@@ -156,6 +160,7 @@ const FETCH_POSTS = gql`
         toDate
       }
       pictures
+      panoramas
       dist {
         calculated
       }

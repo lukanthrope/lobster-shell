@@ -20,9 +20,9 @@ const Search = ({ find, setSearchParam }: Props) => {
   const { delayedQuery, suggestions } = useAuthocompleteAPI();
 
   const OnChange = async (e: React.ChangeEvent<HTMLInputElement>) => { 
-      setSearchVal(e.target.value);
-      if (e.target.value.trim() !== '')
-        delayedQuery(e.target.value);
+    setSearchVal(e.target.value);
+    if (e.target.value.trim() !== '')
+      delayedQuery(e.target.value);
   };
 
   const OnSubmit = (e: React.FormEvent) => {

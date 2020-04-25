@@ -100,7 +100,7 @@ const Post = (props:any) => {
 /////////////////////////////
     <div className="w(100%)">
       <div className="m-t(10%) w(30vw) m-l(10%)">
-        <p>{data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)} <button onClick={() =>isTakenNowText(data.getPost?.schedule)}>check if free</button></p>
+        <p>{data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)}</p>
         <h1>{data.getPost.title}</h1>
         
         <article>{data.getPost.description}</article>
