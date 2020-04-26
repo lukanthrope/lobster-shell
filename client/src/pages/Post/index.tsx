@@ -88,8 +88,6 @@ const Post = (props:any) => {
   }
 
 
-
-
   if (error) 
     return <h1>No post found</h1>
 
@@ -97,14 +95,22 @@ const Post = (props:any) => {
     return <Spinner />
 
   return (
-/////////////////////////////
     <div className="w(100%)">
       <div className="m-t(10%) w(30vw) m-l(10%)">
-        <p>{data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)}</p>
-        <h1>{data.getPost.title}</h1>
+        <div className="d(flex) just-cont(sp-between)">
+          <h1 className="color(lobster-pink)">
+            {data.getPost.title}
+          </h1>
+          <p className="errorMes">({data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)})</p>
+        </div>
         
         <article>{data.getPost.description}</article>
-        <p>{data.getPost.locationName}</p>
+        <p className="h(10px) d(flex) m-t(10px) m-b(10px)">
+          <i className="material-icons" style={{'color': 'red'}}>
+            room    
+          </i> 
+          {data.getPost.locationName}
+        </p>
         
         <PostContext.Provider 
           value={{
@@ -128,7 +134,12 @@ const Post = (props:any) => {
         {
           
           user?.id === data.getPost.userId &&
-          <button onClick={() => setShowModal(true)}>delete</button>
+          <button 
+            className="bord(red) errorMes fs(1.1rem) bgc(white) bgc-hov(gray) pointer m-t(10px) p(5px)"
+            onClick={() => setShowModal(true)}
+            >
+              delete
+          </button>
         }
       </div>
       {lat && lon &&

@@ -12,7 +12,7 @@ export function isTakenNow(schedule: Schedule[]) {
 }
 
 export function isTakenNowText(schedule: Schedule[]) {
-  return isTakenNow(schedule) ? '(in use now)' : '';
+  return isTakenNow(schedule) ? 'in use now' : '';
 }
 
 export function dateToString(date: Date) {

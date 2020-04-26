@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ScrollUpButton from 'react-scroll-up-button';
 import { AuthProvider } from './context/auth';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Host from './pages/Host';
 import Post from './pages/Post';
@@ -26,6 +27,7 @@ const App:React.FC = () =>
         <Route exact path="/:placeId" component={Post} />
         <Route component={NoPageFound} />
       </Switch>
+      <Footer />
     </Router>
     </div>
   </AuthProvider>

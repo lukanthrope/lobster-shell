@@ -8,12 +8,15 @@ const BookTimeList = () => {
   const [showSchedule, setShowSchedule] = React.useState<boolean>(false);
 
   return (
-    <React.Fragment>
-      <button onClick={() => setShowSchedule(prev => !prev)}>
+    <div className="m-t(30px) m-b(10px)">
+      <a
+        className="color(lobster-pink) pointer fw(600) fs(1.3rem) text-dec(underline)"
+        onClick={() => setShowSchedule(prev => !prev)}
+        >
         {showSchedule ? 'hide schedule' : 'show schedule'}
-      </button>
+      </a>
       { showSchedule &&
-      <ul>
+      <ul className="listStyle(none)">
         {
           schedule &&
           schedule.map((el: Schedule, index: number) =>
@@ -25,7 +28,7 @@ const BookTimeList = () => {
         }
       </ul>
       }
-    </React.Fragment>
+    </div>
   )
 }
 

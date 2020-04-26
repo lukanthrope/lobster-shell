@@ -1,6 +1,4 @@
 import * as React from 'react';
-
-
 import Authocomplete from '../Authocomplete';
 import { LIMIT_GET_POSTS, PostData } from '../Posts';
 import useAuthocompleteAPI from '../../hooks/useAuthocompleteAPI';
@@ -47,39 +45,40 @@ const Search = ({ find, setSearchParam }: Props) => {
 
   return (
     <form className="" onSubmit={(e) => OnSubmit(e)}>
-      <input 
-        list="search" 
-        type="input" 
-        name="searchField" 
-        value={searchVal} 
-        onChange={(e) => OnChange(e)} 
-        />
-      <Authocomplete 
-        id="search"
-        suggestions={suggestions?.data.features}
-        />
+        <input 
+          className="h(30px)"
+          list="search" 
+          type="input" 
+          name="searchField" 
+          value={searchVal} 
+          onChange={(e) => OnChange(e)} 
+          />
+        <Authocomplete 
+          id="search"
+          suggestions={suggestions?.data.features}
+          />
 
-      <button 
-        type="submit" 
-        className="
-            m-t(20px) 
-            h(35px) 
-            submit 
-            bgc(l-pink) 
-            w(30px)
-            bord(none) 
-            o-line(none) 
-            pointer 
-            col-h(white)
-            color(nrw) 
-            al-s(center)
-            
-            fs(1.1rem)"  
-        >
-          <i className="material-icons">
-            search
-          </i>
-      </button>
+        <button 
+          type="submit" 
+          className="
+              m-t(30px) 
+              h(35px) 
+              br-5px
+              bgc(l-pink) 
+              w(30px)
+              bord(none) 
+              o-line(none) 
+              pointer 
+              col-h(white)
+              color(nrw) 
+              al-s(center)
+              
+              fs(1.1rem)"  
+          >
+            <i className="material-icons">
+              search
+            </i>
+        </button>
     </form>
   )
 }
