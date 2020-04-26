@@ -44,9 +44,9 @@ const Search = ({ find, setSearchParam }: Props) => {
   }
 
   return (
-    <form className="" onSubmit={(e) => OnSubmit(e)}>
+    <form onSubmit={(e) => OnSubmit(e)}>
         <input 
-          className="h(30px)"
+          className="h(30px) w(220px)"
           list="search" 
           type="input" 
           name="searchField" 
@@ -61,9 +61,11 @@ const Search = ({ find, setSearchParam }: Props) => {
         <button 
           type="submit" 
           className="
-              m-t(30px) 
+              pos(r)
+              bord-l(none)
+              top(5px)
               h(35px) 
-              br-5px
+              
               bgc(l-pink) 
               w(30px)
               bord(none) 

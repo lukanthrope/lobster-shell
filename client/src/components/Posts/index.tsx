@@ -81,17 +81,19 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
           />
       }
 
+      <div className="m-t(50px) m-b(100px) d(flex) m-l(8%) fs(0.8rem)">
       {
         !userId && !loading && data?.getPosts.length === 0 ? 
           <h1>No posts found</h1> : 
-          !userId && <h1>The nearest places to you</h1>
+          !userId && <h1 className="fw(100)">The nearest places to you:</h1>
       }
 
       {
         userId && !loading && data?.getPosts.length === 0 ?
-          <h1>You haven't shared places yet</h1> :
-          userId && <h1>Your posts</h1>
+          <h1 className="fw(100)">You haven't shared places yet</h1> :
+          userId && <h1 className="fw(100) m-t(50px)">Your posts:</h1>
       }
+      </div>
 
         <div className="d(flex) f-flow(row-wrap) just-cont(start)">
           {
