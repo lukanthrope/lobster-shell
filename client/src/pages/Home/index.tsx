@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Posts from '../../components/Posts';
 import Spinner from '../../components/Spinner';
+import { AuthContext } from '../../context/auth';
 const Landingpic = React.lazy(() => import('../../components/Landingpic'));
 
 const Home:React.FC = () => {
   const [coords, setCoords] = React.useState([null, null]);
-  const [err, setErr] = React.useState<string>(undefined);
+  const [err, setErr] = React.useState<string>(null);
+  const { user } = React.useContext(AuthContext);
 
   function success(pos: Position) {
     const res = pos.coords;
@@ -21,10 +23,12 @@ const Home:React.FC = () => {
   }, []);
 
   return (
-    <div className="w(100%)">
+    <div className={`w(100%) ${user && 'm-t(100px)'}`}>
+      { !user &&
       <React.Suspense fallback={ <Spinner /> }>  
         <Landingpic />
       </React.Suspense>
+      }
       
       {
         coords && <Posts coordinates={coords} /> 

@@ -9,6 +9,13 @@ body {
   font-family: 'Arimo', sans-serif;
 }
 
+.welcome {
+  background: url('./images/landing-image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .overfl-y\(auto\) {
   overflow-y: auto;
@@ -153,6 +160,14 @@ body {
   height: 70px;
 }
 
+.h\(45px\) {
+  height: 45px;
+}
+
+.h\(40px\) {
+  height: 40px;
+}
+
 .h\(35px\) {
   height: 35px;
 }
@@ -271,7 +286,7 @@ body {
 }
 
 .m-t\(100px\) {
-  margin-top: 100px;
+  margin-top: 200px;
 }
 
 .m-t\(50px\) {
@@ -346,8 +361,17 @@ body {
   margin: auto;
 }
 
+.top\(40\%\) {
+  top: 40%;
+  color: white
+}
+
 .top\(5px\) {
   top: 5px;
+}
+
+.top\(3px\) {
+  top: 3px;
 }
 
 .top\(0\) {
@@ -374,6 +398,10 @@ body {
   font-family: 'Pacifico', cursive;
   font-size: 2.2rem;
   color: rgb(165, 22, 158);
+}
+
+.fs\(2rem\) {
+  font-size: 2rem;
 }
 
 .fs\(1\.3rem\) {
@@ -498,15 +526,13 @@ body {
 }
 
 .image-land {
-  max-width: 100%;
-  height: auto;
-  width: auto;
-  opacity: 0.8;
-  transition: all 1s linear;
+  opacity: 1;
+  transition: all 0.7s linear;
 }
 
 .image-land:hover {
-  opacity: 1;
+  opacity: 0.5;
+  color: rgb(214, 36, 170);
 }
 
 .file-uploader {
@@ -520,6 +546,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  .h\(45px\) {
+    height: 60px;
+  }
+  
+  .h\(40px\) {
+    height: 55px;
+  }
+  .w\(50\%\) {
+    width: 80%;
+  }
   .w\(30\%\) {
     width: 80%;
   }
@@ -541,8 +577,19 @@ body {
   .h\(60\%\) {
     height: 100%;
   }
-}
 
+  .fs\(2rem\) {
+    font-size: 1.6rem;
+  }
+
+  .m-l\(8\%\) {
+    margin-left: 2%;
+  }
+
+  .font\(logo\) {
+    font-size: 1.3rem;
+  }
+}
 
 .leaflet-container {
   height: 400px;

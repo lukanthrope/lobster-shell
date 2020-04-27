@@ -72,7 +72,7 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
   });
 
   return (
-    <div className="t-al(center) m-t(30px) m-b(100px)">
+    <div className="t-al(center) m-t(50px) m-b(100px)">
       {
         !userId &&
         <Search 

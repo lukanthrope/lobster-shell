@@ -46,12 +46,13 @@ const Search = ({ find, setSearchParam }: Props) => {
   return (
     <form onSubmit={(e) => OnSubmit(e)}>
         <input 
-          className="h(30px) w(220px)"
+          className="h(40px) w(50%) fs(1.3rem)"
           list="search" 
           type="input" 
           name="searchField" 
           value={searchVal} 
           onChange={(e) => OnChange(e)} 
+          placeholder="search places.."
           />
         <Authocomplete 
           id="search"
@@ -63,8 +64,8 @@ const Search = ({ find, setSearchParam }: Props) => {
           className="
               pos(r)
               bord-l(none)
-              top(5px)
-              h(35px) 
+              top(3px)
+              h(45px) 
               
               bgc(l-pink) 
               w(30px)
