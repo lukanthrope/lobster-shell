@@ -101,7 +101,7 @@ const Post = (props:any) => {
           <h1 className="color(lobster-pink)">
             {data.getPost.title}
           </h1>
-          <p className="errorMes">({data.getPost?.schedule.length !== 0 && isTakenNowText(data.getPost?.schedule)})</p>
+          <p className="errorMes">{data.getPost?.schedule.length !== 0 && `(${isTakenNowText(data.getPost?.schedule)})`}</p>
         </div>
         
         <article>{data.getPost.description}</article>

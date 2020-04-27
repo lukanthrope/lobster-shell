@@ -9,12 +9,14 @@ const BookTimeList = () => {
 
   return (
     <div className="m-t(30px) m-b(10px)">
-      <a
-        className="color(lobster-pink) pointer fw(600) fs(1.3rem) text-dec(underline)"
-        onClick={() => setShowSchedule(prev => !prev)}
-        >
-        {showSchedule ? 'hide schedule' : 'show schedule'}
-      </a>
+      { schedule?.length !== 0 &&
+        <a
+          className="color(lobster-pink) pointer fw(600) fs(1.3rem) text-dec(underline)"
+          onClick={() => setShowSchedule(prev => !prev)}
+          >
+          {showSchedule ? 'hide schedule' : 'show schedule'}
+        </a>
+      }
       { showSchedule &&
       <ul className="listStyle(none)">
         {

@@ -22,8 +22,8 @@ const PostPreview = ({
   <div className="f-basis(33%)">
       { isTaken && <p>(in use now)</p> }
       <Link className="text-dec(none)" to={id}>
-        <img className="m-w(300px)" src={picture || defaultImage} />  
-        <h3>{title}</h3>    
+        <img className="m-w(300px) image-land" src={picture || defaultImage} />  
+        <h3 className="color(lobster-pink)">{title}</h3>    
       </Link>
       <span className="d(in-flex)">
         <i className="material-icons" style={{'color': 'red'}}>
