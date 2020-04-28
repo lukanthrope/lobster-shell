@@ -19,7 +19,7 @@ const PostPreview = ({
   distance, 
   location, 
   id }: PostProps) => 
-  <div className="f-basis(33%) m-b(70px)">
+  <div className="f-basis(33%) m-b(100px)">
     <div className="pos(r) m(auto) w(300px) h(300px) w-child(300px) shad">
       <Link className="text-dec(none)" to={id}>
         <img className={`w(300px) h(200px) image-land ${isTaken ? 'opacity(0.5)' : ''}`} src={picture || defaultImage} />   
