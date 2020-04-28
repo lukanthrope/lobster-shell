@@ -20,6 +20,12 @@ body {
   background-size: cover;
 }
 
+.textBord {
+  -webkit-text-fill-color: rgb(255, 79, 79);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(0, 0, 0); 
+}
+
 .overfl-y\(auto\) {
   overflow-y: auto;
 }
@@ -140,7 +146,10 @@ body {
 }
 
 .w-child\(300px\) p {
-  max-width: 300px;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .m-w\(1335px\) {
@@ -153,6 +162,10 @@ body {
 
 .m-w\(300px\) {
   max-width: 300px;
+}
+
+.m-h\(220px\) {
+  max-height: 200px;
 }
 
 .h\(100\%\) {
@@ -169,6 +182,14 @@ body {
 
 .h\(300px\) {
   height: 300px;
+}
+
+.h\(280px\) {
+  height: 280px;
+}
+
+.h\(220px\) {
+  max-height: 200px;
 }
 
 .h\(200px\) {
@@ -389,6 +410,10 @@ body {
   margin-bottom: 100px;
 }
 
+.m-b\(70px\) {
+  margin-bottom: 70px;
+}
+
 .m-b\(50px\) {
   margin-bottom: 50px;
 }
@@ -414,6 +439,10 @@ body {
   color: white
 }
 
+.top\(10px\) {
+  top: 10px;
+}
+
 .top\(5px\) {
   top: 5px;
 }
@@ -434,8 +463,16 @@ body {
   bottom: 0;
 }
 
+.bottom\(1px\) {
+  bottom: 10px;
+}
+
 .left\(150px\) {
   left: 150px;
+}
+
+.left\(-20px\) {
+  left: -50px;
 }
 
 .left\(0\) {
@@ -448,6 +485,10 @@ body {
 
 .right\(0\) {
   right: 0;
+}
+
+.right\(10px\) {
+  right: 10px;
 }
 
 .font\(logo\) {
@@ -508,6 +549,10 @@ body {
 
 .color\(nrw\) {
   color: rgb(245, 236, 236);
+}
+
+.color\(gray\) {
+  color: rgb(133, 129, 129);
 }
 
 .fw\(600\) {
@@ -595,6 +640,10 @@ body {
   color: rgb(214, 36, 170);
 }
 
+.opacity\(0\.5\) {
+  opacity: 0.5;
+}
+
 .file-uploader {
   border: solid transparent;
   border-width: 0 0 10px 20px;
@@ -620,6 +669,10 @@ body {
   }
   .h\(75\%\) {
     height: 50%;
+  }
+
+  .f-basis\(33\%\) {
+    flex-basis: 50%;
   }
 }
 
@@ -647,7 +700,11 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 620px) {
+  .f-basis\(33\%\) {
+    flex-basis: 100%;
+  }
+
   .m-t-l\(\) {
     margin-top: 45%;
   }
@@ -681,6 +738,14 @@ body {
 
   .m-l\(8\%\) {
     margin-left: 2%;
+  }
+
+  .m-l\(auto\) {
+    margin-left: auto;
+  }
+
+  .m-r\(auto\) {
+    margin-right: auto;
   }
 
   .left\(150px\) {
