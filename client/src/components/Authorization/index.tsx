@@ -49,6 +49,7 @@ const Authorization = ({ haveAccount }: AuthorizationProps) => {
             t-al(center)
             m-t(10px)
             m-r(10px)
+            p(0px;5px)
             "
           onClick={() => handleShowModal()} 
           />

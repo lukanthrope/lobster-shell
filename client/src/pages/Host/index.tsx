@@ -122,10 +122,10 @@ const Host = (props: Props) => {
           })}
           >
             {({ isSubmitting }) => (
-              <div className="m(auto) w(30%)">
+              <div className="m(auto) w(30%) m-t-s()">
                 { isSubmitting && <Spinner /> }
-                <h2 className="font(logo)">Be a host</h2>
-                <Form className="m-t(30px) d(flex) f-dir(col) Form">
+                <h1 className="font(logo) fs(3rem) p-s()">Be a host</h1>
+                <Form className="m-t(30px) d(flex) f-dir(col) Form p-s()">
                     
                     <label htmlFor="title">Title</label>
                     <Field 

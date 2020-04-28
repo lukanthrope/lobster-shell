@@ -11,6 +11,9 @@ body {
 
 .welcome {
   background: url('./images/landing-image.jpg') no-repeat center center fixed;
+}
+
+.bg-cover {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -91,12 +94,24 @@ body {
   width: 30%;
 }
 
+.w\(600px\) {
+  width: 600px;
+}
+
+.w\(300px\) {
+  width: 300px;
+}
+
 .w\(250px\) {
   width: 250px;
 }
 
 .w\(220px\) {
   width: 220px;
+}
+
+.w\(200px\) {
+  width: 200px;
 }
 
 .w\(120px\) {
@@ -124,6 +139,10 @@ body {
   width: 30vw;
 }
 
+.w-child\(300px\) p {
+  max-width: 300px;
+}
+
 .m-w\(1335px\) {
   max-width: 1335px;
 }
@@ -146,6 +165,14 @@ body {
 
 .h\(75\%\) {
   height: 75%;
+}
+
+.h\(300px\) {
+  height: 300px;
+}
+
+.h\(200px\) {
+  height: 200px;
 }
 
 .h\(150px\) {
@@ -180,12 +207,29 @@ body {
   height: 20px;
 }
 
+.shad {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.grow {
+  flex-grow: 1;
+  transition: all 300ms ease-in-out;
+}
+
+.grow:hover {
+  flex-grow: 3;
+}
+
 .d\(in-flex\) {
   display: inline-flex;
 }
 
 .d\(flex\) {
   display: flex;
+}
+
+.d\(inlinie\) {
+  display: inline;
 }
 
 .f-dir\(col\) {
@@ -263,6 +307,10 @@ body {
 
 .p\(20px\) {
   padding: 20px;
+}
+
+.p\(0px\;5px\) {
+  padding: 0px 5px;
 }
 
 .p\(5px\) {
@@ -374,12 +422,20 @@ body {
   top: 3px;
 }
 
+.top\(-20px\) {
+  top: -20px;
+}
+
 .top\(0\) {
   top: 0;
 }
 
 .bottom\(0\) {
   bottom: 0;
+}
+
+.left\(150px\) {
+  left: 150px;
 }
 
 .left\(0\) {
@@ -398,6 +454,10 @@ body {
   font-family: 'Pacifico', cursive;
   font-size: 2.2rem;
   color: rgb(165, 22, 158);
+}
+
+.fs\(3rem\) {
+  font-size: 3rem;
 }
 
 .fs\(2rem\) {
@@ -545,6 +605,24 @@ body {
   direction: ltr;
 }
 
+@media (max-width: 1024px) {
+  .m-t-l\(\) {
+    margin-top: 25%;
+  }
+  .m-t-s\(\) {
+    margin-top: 30%;
+  }
+  .w\(30\%\) {
+    width: 70%;
+  }
+  .h\(60\%\) {
+    height: 50%;
+  }
+  .h\(75\%\) {
+    height: 50%;
+  }
+}
+
 @media (max-width: 768px) {
   .h\(45px\) {
     height: 60px;
@@ -570,11 +648,30 @@ body {
 }
 
 @media (max-width: 600px) {
+  .m-t-l\(\) {
+    margin-top: 45%;
+  }
+  .p-s\(\) {
+    padding: 0 30px 30px 30px;
+  }
+  .p-l-s\(\) {
+    padding-left: 30px;
+  }
+  .Form {
+    font-size: 1.2rem;
+  }
+  .Form input {
+    height: 30px;
+  }
+
   .w\(30\%\) {
     width: 100%;
   }
 
   .h\(60\%\) {
+    height: 100%;
+  }
+  .h\(75\%\) {
     height: 100%;
   }
 
@@ -586,11 +683,28 @@ body {
     margin-left: 2%;
   }
 
+  .left\(150px\) {
+    left: 180px;
+  }
+  
+
   .font\(logo\) {
     font-size: 1.3rem;
   }
+  .fs\(3rem\) {
+    font-size: 2.2rem;
+  }
 }
 
+@media (max-width: 410px) {
+  .w\(200px\) {
+    width: 150px;
+  }
+  .h\(200px\) {
+    height: 150px;
+  }
+}
+ 
 .leaflet-container {
   height: 400px;
   width: 80%;

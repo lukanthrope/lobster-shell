@@ -69,10 +69,10 @@ const Registration:React.FC = ({}) => {
               })
             }
             >
-              {({ isSubmitting, errors }) => (
+              {({ isSubmitting }) => (
                 
                 <div>
-                  <h2 className="m-t(20%)">Sign up</h2>
+                  <h2 className="m-t(20%) m-t-l()">Sign up</h2>
                   <Form className="m-t(20px) m-b(10px) d(flex) f-dir(col) Form">
                     { loading && <Spinner /> }
                     <label htmlFor="email">Email Address</label>

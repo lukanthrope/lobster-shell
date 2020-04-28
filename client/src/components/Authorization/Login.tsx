@@ -54,7 +54,7 @@ const Login:React.FC<{}> = () => {
             })}
             >
               {({ isSubmitting }) => (
-                <div className="m-t(20%)">
+                <div className="m-t(20%) m-t-l()">
                   <h2>Log in</h2>
                   <Form className="m-t(20px) m-b(10px) d(flex) f-dir(col) Form">
                       { loading && <Spinner /> }

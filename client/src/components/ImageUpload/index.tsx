@@ -20,24 +20,26 @@ const ImageUpload = ({
     isPanoram = false,
   }: Props) => 
   <div>
-    <div className="m-t(10px)">{title}</div>
+    <section>
+      <p className="m-t(10px)">{title}</p>
       
-      <label className={classes}
+      <label className={`${classes} pos(r) top(-20px) left(150px)`}
         >
-        <span>+</span>
+        <span className="p(0px;5px)">+</span>
         <input 
           className="pointer pos(a) top(0) right(0) file-uploader"
           name="photos"
           type="file"
           accept="image/*"
-          onChange={(e: any) => callback(e, isPanoram)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => callback(e, isPanoram)}
           />
       </label>
+    </section>
   
-    <div>
+    <div className="d(flex) f-wrap(wrap) just-cont(sp-around)">
       {images.length > 0 && 
         images.map((el:string, index:number) => 
-          <ImgPrev key={index} imageNum={index} url={el} isPanoram={isPanoram} del={delImage} />
+          <ImgPrev key={`${el}_${index}`} imageNum={index} url={el} isPanoram={isPanoram} del={delImage} />
       )}
     </div>    
   </div>
