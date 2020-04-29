@@ -10,7 +10,6 @@ interface Coordinates {
   address: string;
   lat: number;
   lon: number;
-  isPreview?: boolean;
 }
 
 const myIcon = L.icon({
@@ -20,8 +19,8 @@ const myIcon = L.icon({
   popupAnchor: [0, -41],
 });
 
-const MapDiv = ({ lat, lon, isPreview = true, address }: Coordinates) => 
-  <div className={`${isPreview ? 'map': 'map-preview'}`}  >
+const MapDiv = ({ lat, lon, address }: Coordinates) => 
+  <div className="map"  >
     <Map
       center={[lon, lat]} 
       zoom={15} 

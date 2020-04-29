@@ -56,19 +56,19 @@ const Book = () => {
       {
         user ?
           <>
-          <div className="d(flex) m-t(30px)">
+          <div className="d(flex) m-t(30px) f-dir-l(col)">
             <DateTimePicker
               onChange={onTimeChange}
               value={stateDate}
               />
-            <p className="m-t(5px) m-l(5px) m-r(5px) fw(600)">-</p>
+            <p className="m-t(5px) m-l(5px) m-r(5px) fw(600) t-al-l(center)">-</p>
             <DateTimePicker
               onChange={onTimeChange2}
               value={stateDate2}
               />
             <button
               className={`pointer bord(l-pink) w(50px) m-l(10px)
-              color(lobster-pink) fs(1.1rem) bgc(white) bgc-hov(gray)`} 
+              color(lobster-pink) fs(1.1rem) bgc(white) bgc-hov(gray) p-l() m-l(auto) m-t-l(10px)`} 
               onClick={Submit}
               >
                 Book
@@ -81,7 +81,7 @@ const Book = () => {
             !bookErr && data && (data.bookPost ? <p>Successfully booked!</p> : <p>Theese dates are already taken</p>)
           }
           </> :
-          <p>Log in to book this place</p>
+          <p className="m-t(30px) color(gray)">Log in to book this place</p>
       }
       
       <BookTimeList />

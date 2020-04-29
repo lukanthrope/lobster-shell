@@ -654,12 +654,31 @@ body {
   direction: ltr;
 }
 
+@media (max-width: 1024px) and (orientation: portrait) {
+  .m-t-portrait {
+    margin-top: 35%;
+    margin-bottom: 40%;
+  }
+}
+
 @media (max-width: 1024px) {
+
   .m-t-l\(\) {
     margin-top: 25%;
   }
   .m-t-s\(\) {
     margin-top: 30%;
+  }
+  .m-l\(auto\) {
+    margin: auto;
+  }
+  .m-t-l\(10px\) {
+    margin-top: 20px;
+  }
+  .p-l\(\) {
+    position: relative;
+    width: 50%;
+    height: 40px;
   }
   .w\(30\%\) {
     width: 70%;
@@ -670,9 +689,15 @@ body {
   .h\(75\%\) {
     height: 50%;
   }
-
+  .t-al-l\(center\) {
+    text-align: center;
+  }
+ 
   .f-basis\(33\%\) {
     flex-basis: 50%;
+  }
+  .f-dir-l\(col\) {
+    flex-direction: column;
   }
 }
 
@@ -719,6 +744,11 @@ body {
   }
   .Form input {
     height: 30px;
+  }
+
+  .w\(30vw\) {
+    width: 90%;
+    margin: auto;
   }
 
   .w\(30\%\) {
@@ -768,10 +798,4 @@ body {
   .h\(200px\) {
     height: 150px;
   }
-}
- 
-.leaflet-container {
-  height: 400px;
-  width: 80%;
-  margin: 0 auto;
 }

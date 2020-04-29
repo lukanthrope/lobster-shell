@@ -95,7 +95,7 @@ const Post = (props:any) => {
     return <Spinner />
 
   return (
-    <div className="w(100%)">
+    <div className="w(100%) m-t-portrait">
       <div className="m-t(10%) w(30vw) m-l(10%)">
         <div className="d(flex) just-cont(sp-between)">
           <h1 className="color(lobster-pink)">
@@ -135,7 +135,7 @@ const Post = (props:any) => {
           
           user?.id === data.getPost.userId &&
           <button 
-            className="bord(red) errorMes fs(1.1rem) bgc(white) bgc-hov(gray) pointer m-t(10px) p(5px)"
+            className="bord(red) errorMes fs(1.1rem) bgc(white) bgc-hov(gray) pointer m-t(10px) m-b(10px) p(5px)"
             onClick={() => setShowModal(true)}
             >
               delete
