@@ -87,6 +87,8 @@ const Post = (props:any) => {
     setShowModal(false);
   }
 
+  const isSmallScreen = () => window.screen.width >= 760;
+
 
   if (error) 
     return <h1>No post found</h1>
@@ -125,8 +127,10 @@ const Post = (props:any) => {
             <ImageGallery 
               items={items}
               onScreenChange={() => { setIsFullScreen(prev => !prev) }}
+              showFullscreenButton={isSmallScreen()}
+              showPlayButton={false}
             /> :
-            <img src={defaultImage} />
+            <img src={defaultImage} className="m-w(90%)" />
           }
         
           <Book />

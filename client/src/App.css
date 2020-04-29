@@ -152,6 +152,10 @@ body {
   overflow: hidden;
 }
 
+.m-w\(90\%\) {
+  max-width: 90%;
+}
+
 .m-w\(1335px\) {
   max-width: 1335px;
 }
@@ -791,11 +795,3 @@ body {
   }
 }
 
-@media (max-width: 410px) {
-  .w\(200px\) {
-    width: 150px;
-  }
-  .h\(200px\) {
-    height: 150px;
-  }
-}
