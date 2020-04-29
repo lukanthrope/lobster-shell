@@ -75,7 +75,7 @@ const Book = () => {
             </button>
           </div>
           {
-            bookErr && <p>Set correct range of dates</p>
+            bookErr && <p className="errorMes">Set correct range of dates</p>
           }
           {
             !bookErr && data && (data.bookPost ? <p>Successfully booked!</p> : <p>Theese dates are already taken</p>)
