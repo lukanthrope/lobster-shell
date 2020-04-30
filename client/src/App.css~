@@ -748,7 +748,7 @@ body {
     font-size: 1.2rem;
   }
   .Form input {
-    height: 35px;
+    height: 30px;
   }
 
   .w\(30vw\) {
