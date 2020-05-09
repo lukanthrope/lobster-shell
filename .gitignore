@@ -35,7 +35,6 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-server/static
 client/package-lock.json
 server/package-lock.json
 package-lock.json
