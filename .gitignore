@@ -38,6 +38,7 @@ jspm_packages/
 client/package-lock.json
 server/package-lock.json
 package-lock.json
+.gitattributes
 
 
 # TypeScript v1 declaration files
