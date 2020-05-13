@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import { LoginInfo } from './index';
 import Spinner from '../../components/Spinner';
 import { AuthContext } from '../../context/auth';
 import HeaderContext from '../Header/HeaderContext';
@@ -15,6 +16,10 @@ interface FormValues {
   password: string,
   confirmPassword: string,
   checked: boolean,
+}
+
+interface UserResponse {
+  register: LoginInfo;
 }
 
 const initialValues:FormValues = {
@@ -34,7 +39,7 @@ const Registration:React.FC = ({}) => {
   return (
     <Mutation 
       mutation={REGISTER_USER} 
-      onCompleted={(data:any) => {
+      onCompleted={(data: UserResponse) => {
         login(data.register);
         hideAuthWindow();
       }}

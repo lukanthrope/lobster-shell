@@ -9,6 +9,12 @@ interface AuthorizationProps {
   haveAccount: boolean;
 }
 
+export interface LoginInfo {
+  id: string;
+  token: string;
+  username: string;
+}
+
 const Authorization = ({ haveAccount }: AuthorizationProps) => {
   const handleShowModal = React.useContext<Function>(HeaderContext);
 

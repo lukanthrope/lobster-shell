@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 
+import { LoginInfo } from './index';
 import Spinner from '../../components/Spinner';
 import { AuthContext } from '../../context/auth';
 import HeaderContext from '../Header/HeaderContext';
@@ -12,6 +13,10 @@ import AuthLink from '../AuthLink';
 interface FormValues {
   email: string,
   password: string,
+}
+
+interface UserResponse {
+  login: LoginInfo;
 }
 
 const initialValues:FormValues = {
@@ -28,7 +33,7 @@ const Login:React.FC<{}> = () => {
   return (
     <Mutation 
       mutation={LOGIN_USER} 
-      onCompleted={(data:any) => {
+      onCompleted={(data: UserResponse) => {
         login(data.login);
         hideAuthWindow();
       }}

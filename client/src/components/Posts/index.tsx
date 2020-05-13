@@ -90,7 +90,7 @@ const Posts = ({ userId, coordinates = [null, null] }: Props) => {
 
       {
         userId && !loading && data?.getPosts.length === 0 ?
-          <h1 className="fw(100)">You haven't shared places yet</h1> :
+          <h1 className="fw(100) m-t(50px)">You haven't shared places yet</h1> :
           userId && <h1 className="fw(100) m-t(50px)">Your posts:</h1>
       }
       </div>
