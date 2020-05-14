@@ -29,3 +29,5 @@ TO INVESTIGATE
 1. Express
 2. GraphQL (Apollo-server)
 3. MongoDB
+4. Mongoose
+5. JWT
