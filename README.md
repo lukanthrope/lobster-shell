@@ -12,7 +12,8 @@ Stupid but technologically super advanced project made by two dreamers
 4. Webpack
 5. [Formik for forms](https://github.com/jaredpalmer/formik "formik")
 6. GraphQL (Apollo-client)
-7. [Ungrid](https://github.com/chrisnager/ungrid/blob/gh-pages/ungrid.min.css "ungrid")
+7. React-leaflet for maps
+8. [Pannellum-React for panoramas (Great for desktop site)] (https://www.npmjs.com/package/pannellum-react)
 
 TO INVESTIGATE
 1. Some maps library
