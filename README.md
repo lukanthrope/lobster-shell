@@ -7,7 +7,7 @@ App that allows people to share places
 
 1. Typescript
 2. React (latest with hooks)
-3. Atomic CSS
+3. Atomic CSS (css codestyle)
 4. Webpack
 5. [Formik for forms](https://github.com/jaredpalmer/formik "formik")
 6. GraphQL (Apollo-client)
