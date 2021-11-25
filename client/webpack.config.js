@@ -15,6 +15,11 @@ module.exports = {
         loader: "source-map-loader"
       },
       {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto",
+      },
+      {
         test: /\.css$/i,
         use: [
           {
@@ -53,6 +58,6 @@ module.exports = {
   ],
   devtool: "source-map",
   resolve: {
-    extensions: [".js", ".ts", ".tsx"]
+    extensions: [".js", ".ts", ".tsx", ".web.js", ".mjs"]
   }
 };
